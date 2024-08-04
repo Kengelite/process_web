@@ -1,36 +1,37 @@
-
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
-  <meta charset="utf-8">
-  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
-  <title>Dashboard - NiceAdmin Bootstrap Template</title>
-  <meta content="" name="description">
-  <meta content="" name="keywords">
+    <title>Dashboard - NiceAdmin Bootstrap Template</title>
+    <meta content="" name="description">
+    <meta content="" name="keywords">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+    <!-- Favicons -->
+    <link href="/assets/img/favicon.png" rel="icon">
+    <link href="/assets/img/apple-touch-icon.png" rel="apple-touch-icon">
 
-  <!-- Favicons -->
-  <link href="/assets/img/favicon.png" rel="icon">
-  <link href="/assets/img/apple-touch-icon.png" rel="apple-touch-icon">
+    <!-- Google Fonts -->
+    <link href="https://fonts.gstatic.com" rel="preconnect">
+    <link
+        href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Nunito:300,300i,400,400i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i"
+        rel="stylesheet">
 
-  <!-- Google Fonts -->
-  <link href="https://fonts.gstatic.com" rel="preconnect">
-  <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Nunito:300,300i,400,400i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
+    <!-- Vendor CSS Files -->
+    <link href="/assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+    <link href="/assets/vendor/boxicons/css/boxicons.min.css" rel="stylesheet">
+    <link href="/assets/vendor/quill/quill.snow.css" rel="stylesheet">
+    <link href="/assets/vendor/quill/quill.bubble.css" rel="stylesheet">
+    <link href="/assets/vendor/remixicon/remixicon.css" rel="stylesheet">
+    <link href="/assets/vendor/simple-datatables/style.css" rel="stylesheet">
 
-  <!-- Vendor CSS Files -->
-  <link href="/assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-  <link href="/assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
-  <link href="/assets/vendor/boxicons/css/boxicons.min.css" rel="stylesheet">
-  <link href="/assets/vendor/quill/quill.snow.css" rel="stylesheet">
-  <link href="/assets/vendor/quill/quill.bubble.css" rel="stylesheet">
-  <link href="/assets/vendor/remixicon/remixicon.css" rel="stylesheet">
-  <link href="/assets/vendor/simple-datatables/style.css" rel="stylesheet">
-
-  <!-- Template Main CSS File -->
-  <link href="/assets/css/style.css" rel="stylesheet">
-
-  <!-- =======================================================
+    <!-- Template Main CSS File -->
+    <link href="/assets/css/style.css" rel="stylesheet">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <!-- =======================================================
   * Template Name: NiceAdmin
   * Template URL: https://bootstrapmade.com/nice-admin-bootstrap-admin-html-template/
   * Updated: Apr 20 2024 with Bootstrap v5.3.3
@@ -41,91 +42,106 @@
 
 <body>
 
+    @include('../menu/menu_nav_user')
+    @include('../menu/menu_user')
 
-@include('../menu/menu_nav')
-@include('../menu/menu')
+    <main id="main" class="main">
 
+        <div class="pagetitle">
+            <h1>แบบสอบถาม</h1>
+        </div><!-- End Page Title -->
 
-  <main id="main" class="main">
+        <section class="section dashboard">
+            <div class="row">
 
-    <div class="pagetitle">
-      <h1>แบบสอบถาม</h1>
-      <!-- <nav>
-        <ol class="breadcrumb">
-          <li class="breadcrumb-item"><a href="index.html">Home</a></li>
-          <li class="breadcrumb-item active">Dashboard</li>
-        </ol>
-      </nav> -->
-    </div><!-- End Page Title -->
-
-    <section class="section dashboard" >
-      <div class="row">
-
-        <!-- Left side columns -->
-        <div class="col-lg-12">
-            <!-- Top Selling -->
-            <div class="col-12">
-              <div class="card top-selling overflow-auto">
-
-                <!-- <div class="filter">
-                  <a class="icon" href="#" data-bs-toggle="dropdown"><i class="bi bi-three-dots"></i></a>
-                  <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
-                    <li class="dropdown-header text-start">
-                      <h6>แบบสอบถาม</h6>
-                    </li>
-
-                    <li><a class="dropdown-item" href="#">Today</a></li>
-                    <li><a class="dropdown-item" href="#">This Month</a></li>
-                    <li><a class="dropdown-item" href="#">This Year</a></li>
-                  </ul>
-                </div> -->
-
-                <div class="card-body pb-0">
-                  <h5 class="card-title">แบบสอบถาม ข้อที่ 1</h5>
-                  <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Provident sed inventore repudiandae qui sint omnis nisi beatae id illum voluptatibus in earum, quas culpa! Culpa tenetur consequuntur temporibus quam voluptatum.</p>
-                    <div class="input-group mb-3">
-                        <span class="input-group-text" id="basic-addon1">คำตอบ : </span>
-                        <input type="text" class="form-control" placeholder="Username" aria-label="Username" aria-describedby="basic-addon1">
-                    </div>
+                <!-- Left side columns -->
+                <div class="col-lg-12">
+                    <!-- Top Selling -->
+                    <div class="col-12">
+                        <div class="card top-selling overflow-auto">
+                            <div class="card-body pb-0">
+                                <h1 class="card-title">แบบสอบถาม ข้อที่ <span style="color:#012970;" id="number-choice">1</span></h1>
+                                <p style="font-size: 1rem;" id="quiz_show">
+                                    {{ $quiz->quiz_name }}
+                                </p>
+                                <div class="input-group mb-3">
+                                    <span class="input-group-text" id="basic-addon1">คำตอบ : </span>
+                                    <input type="text" class="form-control" id="answer" placeholder="..." aria-label="Answer"
+                                        aria-describedby="basic-addon1">
+                                    <div class="ms-3 ">
+                                        <button class="btn btn-success" id="submitForm"> ส่งคำตอบ </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div><!-- End Top Selling -->
                 </div>
+            </div><!-- End Left side columns -->
 
-              </div>
-            </div><!-- End Top Selling -->
+        </section>
 
-          </div>
-        </div><!-- End Left side columns -->
+    </main><!-- End #main -->
 
-     
-      </div>
-    </section>
+    <!-- ======= Footer ======= -->
+    <footer id="footer" class="footer">
+        <div class="copyright">
+            &copy; Copyright <strong><span>NiceAdmin</span></strong>. All Rights Reserved
+        </div>
+        <div class="credits">
+            Designed by <a href="https://bootstrapmade.com/">BootstrapMade</a>
+        </div>
+    </footer><!-- End Footer -->
 
-  </main><!-- End #main -->
+    <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i
+            class="bi bi-arrow-up-short"></i></a>
 
-  <!-- ======= Footer ======= -->
-  <footer id="footer" class="footer">
-    <div class="copyright">
-      &copy; Copyright <strong><span>NiceAdmin</span></strong>. All Rights Reserved
-    </div>
-    <div class="credits">
-      Designed by <a href="https://bootstrapmade.com/">BootstrapMade</a>
-    </div>
-  </footer><!-- End Footer -->
+    <!-- Vendor JS Files -->
+    <script src="/assets/vendor/apexcharts/apexcharts.min.js"></script>
+    <script src="/assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="/assets/vendor/chart.js/chart.umd.js"></script>
+    <script src="/assets/vendor/echarts/echarts.min.js"></script>
+    <script src="/assets/vendor/quill/quill.js"></script>
+    <script src="/assets/vendor/simple-datatables/simple-datatables.js"></script>
+    <script src="/assets/vendor/tinymce/tinymce.min.js"></script>
+    <script src="/assets/vendor/php-email-form/validate.js"></script>
 
-  <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
+    <!-- Template Main JS File -->
+    <!-- <script src="assets/js/main.js"></script> -->
+    <script>
+    $(document).ready(function() {
+        $('#submitForm').on('click', function(e) {
+            e.preventDefault(); // ป้องกันการโหลดหน้าใหม่
+            
+            // เก็บข้อมูลฟอร์มในรูปแบบของอ็อบเจ็กต์
+            var formData = {
+                answer: $('#answer').val()
+            };
 
-  <!-- Vendor JS Files -->
-  <script src="/assets/vendor/apexcharts/apexcharts.min.js"></script>
-  <script src="/assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-  <script src="/assets/vendor/chart.js/chart.umd.js"></script>
-  <script src="/assets/vendor/echarts/echarts.min.js"></script>
-  <script src="/assets/vendor/quill/quill.js"></script>
-  <script src="/assets/vendor/simple-datatables/simple-datatables.js"></script>
-  <script src="/assets/vendor/tinymce/tinymce.min.js"></script>
-  <script src="/assets/vendor/php-email-form/validate.js"></script>
-
-  <!-- Template Main JS File -->
-  <!-- <script src="assets/js/main.js"></script> -->
-
+            // ส่งข้อมูลผ่าน AJAX
+            $.ajax({
+                type: 'post',
+                url: '/nextform', // URL ที่ต้องการส่งข้อมูลไป
+                data: formData,
+                dataType: 'json',
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') // ใช้เพื่อส่ง CSRF token
+                },
+                success: function(response) {
+                    // แสดงผลลัพธ์เมื่อสำเร็จ
+                    console.log(response)
+                    $('#quiz_show').html(response.quiz.quiz_name)
+                    $('#number-choice').html(parseInt($('#number-choice').html())+1)
+                    // alert('คำตอบถูกส่งเรียบร้อยแล้ว');
+                },
+                error: function(xhr, status, error) {
+                    // แสดงข้อผิดพลาดเมื่อมีปัญหา
+                    console.log(error)
+                    alert('เกิดข้อผิดพลาดในการส่งคำตอบ');
+                }
+            });
+        });
+    });
+    </script>
 </body>
 
 </html>

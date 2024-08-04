@@ -8,8 +8,16 @@ use App\Http\Controllers\AdminController;
 //     return view('welcome');
 // });
 
+Route::get('/login', function () {
+    return view('login');
+})->name('pagelogin');
+Route::get('/profile', function () {
+    return view('profile') ;
+})->name('pageprofile');
 
 Route::get('/', [UserController::class, 'show']);
-Route::get('/form', [UserController::class, 'showform']);
+Route::get('/form', [UserController::class, 'showform'])->name('pageform');
+Route::post('/nextform', [UserController::class, 'shownextform']);
+
 
 Route::get('/Admin', [AdminController::class, 'showAdmin']);
