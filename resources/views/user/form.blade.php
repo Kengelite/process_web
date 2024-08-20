@@ -60,18 +60,39 @@
                     <div class="col-12">
                         <div class="card top-selling overflow-auto">
                             <div class="card-body pb-0">
-                                <h1 class="card-title">แบบสอบถาม ข้อที่ <span style="color:#012970;" id="number-choice">1</span></h1>
+                                <h1 class="card-title">แบบสอบถาม ข้อที่ <span style="color:#012970;"
+                                        id="number-choice">1</span></h1>
                                 <p style="font-size: 1rem;" id="quiz_show">
                                     {{ $quiz->quiz_name }}
                                 </p>
-                                <div class="input-group mb-3">
-                                    <span class="input-group-text" id="basic-addon1">คำตอบ : </span>
-                                    <input type="text" class="form-control" id="answer" placeholder="..." aria-label="Answer"
-                                        aria-describedby="basic-addon1">
-                                    <div class="ms-3 ">
-                                        <button class="btn btn-success" id="submitForm"> ส่งคำตอบ </button>
+                                <div id="quiz_content">
+                                    <div class="input-group mb-3">
+
+                                        @if ($quiz->type_name === 'input')
+                                        <span class="input-group-text" id="basic-addon1">คำตอบ : </span>
+                                        <input type="text" class="form-control" id="answer" placeholder="..."
+                                            aria-label="Answer" aria-describedby="basic-addon1">
+                                        <div class="ms-3">
+                                            <button class="btn btn-success" id="submitForm"> ส่งคำตอบ </button>
+                                        </div>
+                                        @elseif ($quiz->type_name === 'select')
+                                        <div class="input-group mb-3">
+                                            <span class="input-group-text" id="basic-addon1">เลือกคำตอบ : </span>
+                                            <select class="form-select" id="answer">
+                                                <option value="option1">Option 1</option>
+                                                <option value="option2">Option 2</option>
+                                                <option value="option3">Option 3</option>
+                                            </select>
+                                            <div class="ms-3">
+                                                <button class="btn btn-success" id="submitForm"> ส่งคำตอบ </button>
+                                            </div>
+                                        </div>
+
                                     </div>
                                 </div>
+
+                                <!-- <p>This quiz does not require an answer form.</p> -->
+                                @endif
                             </div>
                         </div>
                     </div><!-- End Top Selling -->
@@ -111,7 +132,7 @@
     $(document).ready(function() {
         $('#submitForm').on('click', function(e) {
             e.preventDefault(); // ป้องกันการโหลดหน้าใหม่
-            
+
             // เก็บข้อมูลฟอร์มในรูปแบบของอ็อบเจ็กต์
             var formData = {
                 answer: $('#answer').val()
@@ -124,14 +145,42 @@
                 data: formData,
                 dataType: 'json',
                 headers: {
-                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') // ใช้เพื่อส่ง CSRF token
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr(
+                        'content') // ใช้เพื่อส่ง CSRF token
                 },
                 success: function(response) {
                     // แสดงผลลัพธ์เมื่อสำเร็จ
-                    console.log(response)
+                    console.log(response);
+
+                    // อัปเดตฟอร์มใหม่ตามประเภทของ quiz ถัดไป
                     $('#quiz_show').html(response.quiz.quiz_name)
-                    $('#number-choice').html(parseInt($('#number-choice').html())+1)
-                    // alert('คำตอบถูกส่งเรียบร้อยแล้ว');
+                    let quizbtnsubmit =
+                        '<div class="ms-3"><button class="btn btn-success" id="submitForm"> ส่งคำตอบ </button></div>';
+
+                    var quizContent = '';
+
+                    if (response.quiz.type_name === 'input') {
+                        quizContent += '<div class="input-group mb-3">' +
+                            '<span class="input-group-text" id="basic-addon1">คำตอบ : </span>' +
+                            '<input type="text" class="form-control" id="answer" placeholder="..." aria-label="Answer" aria-describedby="basic-addon1">' +
+                            '</div>';
+                    } else if (response.quiz.type_name === 'select') {
+                        // console.log("hello")
+                        quizContent += '<div class="input-group mb-3">' +
+                            '<span class="input-group-text" id="basic-addon1">เลือกคำตอบ : </span>' +
+                            '<select class="form-select" id="answer">' +
+                            '<option value="option1">Option 1</option>' +
+                            '<option value="option2">Option 2</option>' +
+                            '<option value="option3">Option 3</option>' +
+                            '</select>' +
+                            quizbtnsubmit+
+                            '</div>';
+                    }
+
+                   
+                    // อัปเดตเนื้อหาของ #quiz_content
+                    $('#number-choice').html(parseInt($('#number-choice').html()) + 1)
+                    $('#quiz_content').html(quizContent);
                 },
                 error: function(xhr, status, error) {
                     // แสดงข้อผิดพลาดเมื่อมีปัญหา
