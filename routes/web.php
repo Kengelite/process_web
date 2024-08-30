@@ -15,6 +15,11 @@ Route::get('/profile', function () {
     return view('profile') ;
 })->name('pageprofile');
 
+Route::get('/contact', function () {
+    return view('user.contact') ;
+})->name('pagecontact');
+
+
 Route::get('/', [UserController::class, 'show']);
 Route::get('/form', [UserController::class, 'showform'])->name('pageform');
 Route::post('/nextform', [UserController::class, 'shownextform']);
