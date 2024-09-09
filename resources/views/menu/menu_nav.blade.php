@@ -4,7 +4,7 @@
 <div class="d-flex align-items-center justify-content-between">
 
     <img src="/assets/img/CP_Logo.png" width="100rem" alt="">
-    <span class="d-none d-lg-block ps-2">ScholarSphere</span>
+    <span class="d-none d-lg-block ps-2">WebCPKKU</span>
   </a>
   <i class="bi bi-list toggle-sidebar-btn"></i>
 </div><!-- End Logo -->
