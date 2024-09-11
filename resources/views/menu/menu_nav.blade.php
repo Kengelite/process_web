@@ -4,12 +4,12 @@
 <div class="d-flex align-items-center justify-content-between">
 
     <img src="/assets/img/CP_Logo.png" width="100rem" alt="">
-    <span class="d-none d-lg-block ps-2">WebCPKKU</span>
+    <span class="d-none d-lg-block ps-4">CPAssets </span>
   </a>
-  <i class="bi bi-list toggle-sidebar-btn"></i>
+  <i class="bi bi-list toggle-sidebar-btn ps-3"></i>
 </div><!-- End Logo -->
 
-<div class="search-bar input-group ms-2 me-5">
+<div class="search-bar input-group ms-5 me-5">
     <input type="text" name="query" class="form-control" placeholder="Search" title="Enter search keyword">
     <button class="btn btn-outline-secondary" type="submit" title="Search">
         <i class="bi bi-search"></i>

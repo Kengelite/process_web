@@ -2,54 +2,56 @@
   <aside id="sidebar" class="sidebar">
 
       <ul class="sidebar-nav" id="sidebar-nav">
-          <li class="nav-heading ">Menu</li>
+          <li class="nav-heading ">ทรัพย์สินองค์กร ( CP Assets )</li>
 
-          <li class="nav-item">
+          <!-- <li class="nav-item">
               <a class="nav-link collapsed" href="users-profile.html">
                   <i class="bi bi-person"></i>
                   <span>Profile</span>
               </a>
-          </li><!-- End Profile Page Nav -->
+          </li> -->
 
           <li class="nav-item">
               <a class="nav-link collapsed" href="pages-faq.html">
                   <i class="bi bi-question-circle"></i>
-                  <span>F.A.Q</span>
+                  <span>กระบวนการ ( Process ) </span>
               </a>
           </li><!-- End F.A.Q Page Nav -->
 
           <li class="nav-item">
               <a class="nav-link collapsed" href="pages-contact.html">
                   <i class="bi bi-envelope"></i>
-                  <span>Contact</span>
+                  <span>โปรเจค ( Project )</span>
               </a>
           </li><!-- End Contact Page Nav -->
 
           <li class="nav-item">
               <a class="nav-link collapsed" href="pages-register.html">
                   <i class="bi bi-card-list"></i>
-                  <span>Register</span>
+                  <span>ผลิตภัณฑ์ ( Product )</span>
               </a>
           </li><!-- End Register Page Nav -->
 
           <li class="nav-item">
               <a class="nav-link collapsed" href="pages-login.html">
                   <i class="bi bi-box-arrow-in-right"></i>
-                  <span>Login</span>
+                  <span> เจ้าหน้าที่ 
+                  <!-- Login -->
+                  </span>
               </a>
           </li><!-- End Login Page Nav -->
 
           <li class="nav-item">
               <a class="nav-link collapsed" href="pages-error-404.html">
                   <i class="bi bi-dash-circle"></i>
-                  <span>Error 404</span>
+                  <span>อาจารย์</span>
               </a>
           </li><!-- End Error 404 Page Nav -->
 
           <li class="nav-item">
               <a class="nav-link collapsed" href="pages-blank.html">
-                  <i class="bi bi-file-earmark"></i>
-                  <span>Blank</span>
+                  <i class="bi bi-box-arrow-in-right"></i>
+                  <span>ออกจากระบบ</span>
               </a>
           </li><!-- End Blank Page Nav -->
 

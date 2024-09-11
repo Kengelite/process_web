@@ -12,7 +12,11 @@
 :root {
   scroll-behavior: smooth;
 }
-
+.center-search {
+  display: flex;
+  justify-content: center; /* จัดให้อยู่ตรงกลาง */
+  margin-bottom: 20px; /* เพิ่มระยะห่างด้านล่าง */
+}
 body {
   font-family: "Open Sans", sans-serif;
   background: #f6f9ff;
