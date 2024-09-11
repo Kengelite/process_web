@@ -37,7 +37,8 @@
     <link href="/assets/vendor/simple-datatables/style.css" rel="stylesheet">
 
     <!-- Template Main CSS File -->
-    <link href="/assets/css/style.css" rel="stylesheet">
+    <link rel="stylesheet" href="{{ asset('/assets/css/style.css') }}">
+    <!-- <link href="/assets/css/style.css" rel="stylesheet"> -->
 
     <style>
     .center-search {

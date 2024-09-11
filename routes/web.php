@@ -26,8 +26,8 @@ Route::get('/pagedataforprocess', function () {
 
 
 Route::get('/', [UserController::class, 'show'])->name('pageindex');
-Route::get('/form', [UserController::class, 'showform'])->name('pageform');
-Route::post('/nextform', [UserController::class, 'shownextform']);
+// Route::get('/form', [UserController::class, 'showform'])->name('pageform');
+// Route::post('/nextform', [UserController::class, 'shownextform']);
 
 
-Route::get('/Admin', [AdminController::class, 'showAdmin']);
+// Route::get('/Admin', [AdminController::class, 'showAdmin']);
