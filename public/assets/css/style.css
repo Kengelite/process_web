@@ -12,17 +12,43 @@
 :root {
   scroll-behavior: smooth;
 }
-.center-search {
-  display: flex;
-  justify-content: center; /* จัดให้อยู่ตรงกลาง */
-  margin-bottom: 20px; /* เพิ่มระยะห่างด้านล่าง */
+#example_length select ,#example_filter input{
+  /* display: block; */
+  /* width: 100%; */
+  margin-left: 1rem; 
+  margin-right: 1rem; 
+  height: calc(1.5em + 0.75rem + 2px); /* ปรับขนาดความสูง */
+  padding: 0.375rem 0.75rem; /* ช่องว่างภายใน */
+  font-size: 1rem;
+  font-weight: 400;
+  line-height: 1.5;
+  color: #495057; /* สีของข้อความ */
+  background-color: #fff; /* สีพื้นหลัง */
+  background-clip: padding-box;
+  border: 1px solid #ced4da; /* กำหนดสีและขนาดของเส้นขอบ */
+  border-radius: 0.25rem; /* ทำมุมโค้ง */
+  transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+}
+
+/* เมื่อ focus จะเปลี่ยนสีขอบ */
+#example_length select:focus,#example_filter input:focus {
+  border-color: #80bdff;
+  outline: 0;
+  box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+}
+#example_filter  {
+text-align: start;
+  /* margin-top: 2rem; */
+  display: inline;
 }
 body {
   font-family: "Open Sans", sans-serif;
   background: #f6f9ff;
   color: #444444;
 }
-
+#example_length{
+  display: inline-block;
+}
 a {
   color: #4154f1;
   text-decoration: none;

@@ -19,8 +19,13 @@ Route::get('/contact', function () {
     return view('user.contact') ;
 })->name('pagecontact');
 
+Route::get('/pagedataforprocess', function () {
+    return view('user.page_data_process') ;
+})->name('pageprocess');
 
-Route::get('/', [UserController::class, 'show']);
+
+
+Route::get('/', [UserController::class, 'show'])->name('pageindex');
 Route::get('/form', [UserController::class, 'showform'])->name('pageform');
 Route::post('/nextform', [UserController::class, 'shownextform']);
 

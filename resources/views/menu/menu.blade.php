@@ -4,12 +4,12 @@
       <ul class="sidebar-nav" id="sidebar-nav">
           <li class="nav-heading ">ทรัพย์สินองค์กร ( CP Assets )</li>
 
-          <!-- <li class="nav-item">
-              <a class="nav-link collapsed" href="users-profile.html">
+          <li class="nav-item">
+              <a class="nav-link collapsed" href="{{route('pageindex')}}">
                   <i class="bi bi-person"></i>
-                  <span>Profile</span>
+                  <span>หน้าแรก</span>
               </a>
-          </li> -->
+          </li>
 
           <li class="nav-item">
               <a class="nav-link collapsed" href="pages-faq.html">

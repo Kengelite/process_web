@@ -39,15 +39,6 @@
     <!-- Template Main CSS File -->
     <link href="/assets/css/style.css" rel="stylesheet">
 
-    <style>
-    .center-search {
-        display: flex;
-        justify-content: center;
-        /* จัดให้อยู่ตรงกลาง */
-        margin-bottom: 20px;
-        /* เพิ่มระยะห่างด้านล่าง */
-    }
-    </style>
     <!-- =======================================================
   * Template Name: NiceAdmin
   * Template URL: https://bootstrapmade.com/nice-admin-bootstrap-admin-html-template/
@@ -67,13 +58,13 @@
     <main id="main" class="main fs-5">
 
         <div class="pagetitle">
-            <h1> ทรัพย์สินองค์กร ( CP Assets ) </h1>
+            <h1> กระบวนการ ( Process ) </h1>
             <nav>
                 <!-- <ol class="breadcrumb">
           <li class="breadcrumb-item"><a href="index.html">Home</a></li>
           <li class="breadcrumb-item active">Dashboard</li>
         </ol> -->
-                <!-- <span> ทรัพย์สินองค์กร ( CP Assets ) </span> -->
+                <span> Process ID : 123456789</span>
             </nav>
         </div><!-- End Page Title -->
 
@@ -112,7 +103,7 @@
                     <div class="card info-card sales-card">
 
                         <div class="card-body">
-                            <h5 class="card-title">กระบวนการ
+                            <h5 class="card-title">อาจารย์รับผิดชอบ
                                 <!-- <span>| Asian</span> -->
                             </h5>
 
@@ -140,7 +131,7 @@
 
 
                         <div class="card-body">
-                            <h5 class="card-title"> โปรเจค
+                            <h5 class="card-title"> เจ้าหน้าที่รับผิดชอบ
                                 <!-- <span>| Thailand</span> -->
                             </h5>
 
@@ -169,7 +160,7 @@
 
 
                         <div class="card-body">
-                            <h5 class="card-title"> ผลิตภัณฑ์
+                            <h5 class="card-title"> ฝ่ายที่รับผิดชอบ
                                 <!-- <span>| Thailand</span> -->
                             </h5>
 
@@ -190,7 +181,7 @@
                     </div>
 
                 </div><!-- End Customers Card -->
-
+         
                 <!-- Left side columns -->
                 <div class="col-lg-12">
                     <div class="row">
@@ -198,14 +189,14 @@
                         <div class="col-12">
                             <div class="card recent-sales overflow-auto">
 
-                                <div class="filter" style="margin-right: 3%;">
+                                <div class="filter" style="margin-right: 8%;">
 
                                     <button class="btn btn-success ml-auto">เพิ่มข้อมูล</button>
                                 </div>
 
                                 <div class="card-body">
                                     <h5 class="card-title d-flex justify-content-between align-items-center">
-                                        รายการทรัพย์สินทั้งหมด
+                                        Process กำลังดำเนินการ
                                         <!-- <button class="btn btn-success ml-auto"
                                             style="margin-right: 8%;">เพิ่มข้อมูล</button> -->
                                     </h5>
@@ -239,8 +230,7 @@
                                                 <td>$64</td>
                                                 <td>$64</td>
                                                 <!-- <td><span class="badge bg-success">Approved</span></td> -->
-                                                <td> <a class="btn btn-primary " href="{{route('pageprocess')}}"> ข้อมูล
-                                                    </a></td>
+                                                <td> <button class="btn btn-primary " > ข้อมูล </button></td>
                                                 </tr>
 
                                                 @endfor
@@ -266,22 +256,9 @@
             "searching": true, // เปิดการค้นหา
             "ordering": true, // เปิดการจัดเรียง
             "info": true // แสดงข้อมูลเพิ่มเติม เช่น จำนวนรายการ
-                ,
-            "language": {
-                "lengthMenu": "แสดง _MENU_ รายการต่อหน้า",
-                "zeroRecords": "ไม่พบข้อมูล",
-                "info": "แสดงหน้า _PAGE_ จาก _PAGES_",
-                "infoEmpty": "ไม่มีข้อมูล",
-                "infoFiltered": "(ค้นหาจากทั้งหมด _MAX_ รายการ)",
-                "paginate": {
-                    "first": "หน้าแรก",
-                    "last": "หน้าสุดท้าย",
-                    "next": "ถัดไป",
-                    "previous": "ก่อนหน้า"
-                },
-                "search": "ค้นหา : "
-            }
+            
         });
+        $('#example_filter').addClass('center-search');
     });
     </script>
     <!-- ======= Footer ======= -->
