@@ -6,35 +6,36 @@
 
           <li class="nav-item">
               <a class="nav-link collapsed" href="{{route('pageindex')}}">
-                  <i class="bi bi-person"></i>
+                  <!-- <i class="bi bi-person"></i> -->
+                  <i class="ri-home-line"></i>
                   <span>หน้าแรก</span>
               </a>
           </li>
 
           <li class="nav-item">
-              <a class="nav-link collapsed" href="pages-faq.html">
-                  <i class="bi bi-question-circle"></i>
+              <a class="nav-link collapsed" href="{{route('pageprocess')}}">
+                  <i class="ri-file-text-line"></i>
                   <span>กระบวนการ ( Process ) </span>
               </a>
           </li><!-- End F.A.Q Page Nav -->
 
           <li class="nav-item">
-              <a class="nav-link collapsed" href="pages-contact.html">
-                  <i class="bi bi-envelope"></i>
+          <a class="nav-link collapsed" href="{{route('pageproject')}}">
+                  <i class="ri-file-list-2-line"></i>
                   <span>โปรเจค ( Project )</span>
               </a>
           </li><!-- End Contact Page Nav -->
 
           <li class="nav-item">
               <a class="nav-link collapsed" href="pages-register.html">
-                  <i class="bi bi-card-list"></i>
+              <i class="ri-file-list-3-line"></i>
                   <span>ผลิตภัณฑ์ ( Product )</span>
               </a>
           </li><!-- End Register Page Nav -->
 
           <li class="nav-item">
               <a class="nav-link collapsed" href="pages-login.html">
-                  <i class="bi bi-box-arrow-in-right"></i>
+                  <i class="ri-team-line"></i>
                   <span> เจ้าหน้าที่ 
                   <!-- Login -->
                   </span>
@@ -43,14 +44,15 @@
 
           <li class="nav-item">
               <a class="nav-link collapsed" href="pages-error-404.html">
-                  <i class="bi bi-dash-circle"></i>
+                  <i class="ri-user-3-line"></i>
                   <span>อาจารย์</span>
               </a>
           </li><!-- End Error 404 Page Nav -->
 
           <li class="nav-item">
               <a class="nav-link collapsed" href="pages-blank.html">
-                  <i class="bi bi-box-arrow-in-right"></i>
+                  <!-- <i class="bi bi-box-arrow-in-right"></i> -->
+                  <i class="ri-logout-box-r-line"></i>
                   <span>ออกจากระบบ</span>
               </a>
           </li><!-- End Blank Page Nav -->

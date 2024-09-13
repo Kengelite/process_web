@@ -9,6 +9,6 @@ class status_all extends Model
 {
     use HasFactory,SoftDeletes;
     protected $fillable = [
-        'next_quiz',
+        'status_all_name',
     ];
 }

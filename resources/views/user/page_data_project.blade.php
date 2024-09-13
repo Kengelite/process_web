@@ -68,7 +68,7 @@
     <main id="main" class="main fs-5">
 
         <div class="pagetitle">
-            <h1> ทรัพย์สินองค์กร ( CP Assets ) </h1>
+            <h1> โปรเจค ( Project ) </h1>
             <nav>
                 <!-- <ol class="breadcrumb">
           <li class="breadcrumb-item"><a href="index.html">Home</a></li>
@@ -205,52 +205,47 @@
                                 </div>
 
                                 <div class="card-body">
-                                    <h5 id="head" class="card-title d-flex justify-content-between align-items-center">
-                                        รายการทรัพย์สินทั้งหมด
+                                    <h5 class="card-title d-flex justify-content-between align-items-center">
+                                        รายการโปรเจคทั้งหมด
                                         <!-- <button class="btn btn-success ml-auto"
                                             style="margin-right: 8%;">เพิ่มข้อมูล</button> -->
                                     </h5>
 
-                                    <table id="example" class="display pt-2 table table-borderless  datatable fs-6"
+                                    <table id="example" class="display table table-borderless datatable fs-6"
                                         style="width:100%">
-                                        <thead class="pt-3">
-                                            <tr class="table-secondary">
+                                        <thead>
+                                            <tr>
                                                 <th scope="col">ลำดับ</th>
                                                 <th scope="col">เลขอ้างอิง</th>
                                                 <th scope="col">ชื่องาน</th>
-                                                <th scope="col">ประเภท</th>
                                                 <th scope="col">เจ้าหน้าที่</th>
                                                 <th scope="col">อาจารย์</th>
                                                 <th scope="col">หน่วยงาน</th>
-                                                <th scope="col">ปี</th>
                                                 <th scope="col"> </th>
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            @foreach($documents as $document)
-                                            <tr>
+                                            @for ($i = 0; $i < 50; $i++) <tr>
                                                 <th scope="row">
-                                                    {{ $loop->iteration }}
-                                                    <!-- ใช้ $loop->iteration เพื่อแสดงลำดับ -->
+
+                                                    {{$i}}
                                                 </th>
                                                 <td>
-                                                    <div> {{$document->id_number}}</div>
+                                                    <div> Brandon Jacob </div>
                                                 </td>
-                                                <td>
-                                                    <div> {{$document->document_name}}</div>
-                                                </td>
-                                                <td> {{$document->type_all_name}}</td>
-                                                <td>{{ $document->emp_name ?? '-' }}</td>
+                                                <td>At praesentium minu
 
-                                                <td>{{ $document->teacher_name ?? '-' }}</td>
-                                                <td>{{$document->cotton_name}}</td>
-                                                <td>{{$document->year_name}}</td>
-                                                <td>
-                                                    <buntton class="btn btn-primary btndata" id="{{$loop->iteration}}">ข้อมูล</buntton>
                                                 </td>
-                                            </tr>
-                                            @endforeach
-                                            <!-- เพิ่มข้อมูลในตารางตามที่ต้องการ -->
+                                                <td>$64</td>
+                                                <td>$64</td>
+                                                <td>$64</td>
+                                                <!-- <td><span class="badge bg-success">Approved</span></td> -->
+                                                <td> <a class="btn btn-primary " href="{{route('pageprocess')}}"> ข้อมูล
+                                                    </a></td>
+                                                </tr>
+
+                                                @endfor
+                                                <!-- เพิ่มข้อมูลในตารางตามที่ต้องการ -->
                                         </tbody>
                                     </table>
 
@@ -267,13 +262,6 @@
     </main><!-- End #main -->
     <script>
     $(document).ready(function() {
-
-        $('.btndata').on('click', function(e) {
-            e.preventDefault();
-            console.log(this.id);
-            $('#head').html("web ง่ายนิดเดียว");
-        })
-
         $('#example').DataTable({
             "paging": true, // เปิดการแบ่งหน้า
             "searching": true, // เปิดการค้นหา
@@ -293,11 +281,6 @@
                     "previous": "ก่อนหน้า"
                 },
                 "search": "ค้นหา : "
-            },
-            "fnDrawCallback": function() {
-                $('.paginate_button').addClass('btn btn-light'); // เพิ่มคลาส btn
-                $('.paginate_button.current').removeClass('btn-light').addClass(
-                    'btn-primary'); // ปุ่มปัจจุบันเป็น btn-primary
             }
         });
     });

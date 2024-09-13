@@ -9,6 +9,8 @@ class employee extends Model
 {
     use HasFactory,SoftDeletes;
     protected $fillable = [
-        'next_quiz',
+        'emp_name',
+        'picture_url',
+        'emp_name'
     ];
 }

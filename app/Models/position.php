@@ -9,6 +9,6 @@ class position extends Model
 {
     use HasFactory,SoftDeletes;
     protected $fillable = [
-        'next_quiz',
+        'positon_name',
     ];
 }

@@ -9,6 +9,9 @@ class document extends Model
 {
     use HasFactory,SoftDeletes;
     protected $fillable = [
-        'next_quiz',
+        'id_number',
+        'document_name',
+        'version',
+        'end_time'
     ];
 }

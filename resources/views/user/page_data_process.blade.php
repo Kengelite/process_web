@@ -196,7 +196,7 @@
 
                                 <div class="card-body">
                                     <h5 class="card-title d-flex justify-content-between align-items-center">
-                                        Process กำลังดำเนินการ
+                                    รายการกระบวนการทั้งหมด
                                         <!-- <button class="btn btn-success ml-auto"
                                             style="margin-right: 8%;">เพิ่มข้อมูล</button> -->
                                     </h5>

@@ -3,13 +3,22 @@
 namespace App\Http\Controllers;
 use Illuminate\View\View;
 use Illuminate\Http\Request;
-use App\Models\quiz;
+use App\Models\document;
+use Illuminate\Support\Facades\DB;
 
 class UserController extends Controller
 {
     public function show(): View
     {
-        return view('user.index');
+        $documents = DB::table('documents')
+        ->leftJoin('type_alls', 'id_type', '=', 'type_all_id')
+        ->leftJoin('teachers', 'start_teacher', '=', 'teacher_id')
+        ->leftJoin('employees', 'start_employee', '=', 'emp_id')
+        ->leftJoin('cotton', 'id_cotton', '=', 'cotton_id')
+        ->leftJoin('years', 'id_year', '=', 'year_id')
+        ->get();
+        // return view('user.index');
+        return view('user.index', ['documents' => $documents]);
     }
     public function showform(): View
     {

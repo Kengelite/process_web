@@ -9,6 +9,7 @@ class teacher extends Model
 {
     use HasFactory,SoftDeletes;
     protected $fillable = [
-        'next_quiz',
+        'teacher_name',
+        'picture_url'
     ];
 }

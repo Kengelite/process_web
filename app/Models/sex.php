@@ -9,6 +9,6 @@ class sex extends Model
 {
     use HasFactory,SoftDeletes;
     protected $fillable = [
-        'next_quiz',
+        'sex_name',
     ];
 }

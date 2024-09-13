@@ -5,11 +5,12 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
-class file_all extends Model
+class academic extends Model
 {
     use HasFactory,SoftDeletes;
     protected $fillable = [
-        'file_all_name',
-        'file_url',
+        'academic_name',
+        'academic_stort_name'
     ];
+
 }
