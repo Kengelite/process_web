@@ -75,6 +75,7 @@
           <li class="breadcrumb-item active">Dashboard</li>
         </ol> -->
                 <!-- <span> ทรัพย์สินองค์กร ( CP Assets ) </span> -->
+                <span> Process ID : 123456789</span>
             </nav>
         </div><!-- End Page Title -->
 
@@ -211,41 +212,47 @@
                                             style="margin-right: 8%;">เพิ่มข้อมูล</button> -->
                                     </h5>
 
-                                    <table id="example" class="display table table-borderless datatable fs-6"
+                                    <table id="project" class="display pt-2 table table-borderless  datatable fs-6"
                                         style="width:100%">
-                                        <thead>
-                                            <tr>
+                                        <thead class="pt-3">
+                                            <tr class="table-secondary">
                                                 <th scope="col">ลำดับ</th>
                                                 <th scope="col">เลขอ้างอิง</th>
                                                 <th scope="col">ชื่องาน</th>
+                                                <th scope="col">ประเภท</th>
                                                 <th scope="col">เจ้าหน้าที่</th>
                                                 <th scope="col">อาจารย์</th>
                                                 <th scope="col">หน่วยงาน</th>
+                                                <th scope="col">ปี</th>
                                                 <th scope="col"> </th>
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            @for ($i = 0; $i < 50; $i++) <tr>
+                                            @foreach($documents as $document)
+                                            <tr>
                                                 <th scope="row">
-
-                                                    {{$i}}
+                                                    {{ $loop->iteration }}
+                                                    <!-- ใช้ $loop->iteration เพื่อแสดงลำดับ -->
                                                 </th>
                                                 <td>
-                                                    <div> Brandon Jacob </div>
+                                                    <div> {{$document->id_number}}</div>
                                                 </td>
-                                                <td>At praesentium minu
-
+                                                <td>
+                                                    <div> {{$document->document_name}}</div>
                                                 </td>
-                                                <td>$64</td>
-                                                <td>$64</td>
-                                                <td>$64</td>
-                                                <!-- <td><span class="badge bg-success">Approved</span></td> -->
-                                                <td> <a class="btn btn-primary " href="{{route('pageprocess')}}"> ข้อมูล
-                                                    </a></td>
-                                                </tr>
+                                                <td> {{$document->type_all_name}}</td>
+                                                <td>{{ $document->emp_name ?? '-' }}</td>
 
-                                                @endfor
-                                                <!-- เพิ่มข้อมูลในตารางตามที่ต้องการ -->
+                                                <td>{{ $document->teacher_name ?? '-' }}</td>
+                                                <td>{{$document->cotton_name}}</td>
+                                                <td>{{$document->year_name}}</td>
+                                                <td>
+                                                    <buntton class="btn btn-primary btndata" id="{{$loop->iteration}}">
+                                                        ข้อมูล</buntton>
+                                                </td>
+                                            </tr>
+                                            @endforeach
+                                            <!-- เพิ่มข้อมูลในตารางตามที่ต้องการ -->
                                         </tbody>
                                     </table>
 
@@ -260,31 +267,7 @@
         </section>
 
     </main><!-- End #main -->
-    <script>
-    $(document).ready(function() {
-        $('#example').DataTable({
-            "paging": true, // เปิดการแบ่งหน้า
-            "searching": true, // เปิดการค้นหา
-            "ordering": true, // เปิดการจัดเรียง
-            "info": true // แสดงข้อมูลเพิ่มเติม เช่น จำนวนรายการ
-                ,
-            "language": {
-                "lengthMenu": "แสดง _MENU_ รายการต่อหน้า",
-                "zeroRecords": "ไม่พบข้อมูล",
-                "info": "แสดงหน้า _PAGE_ จาก _PAGES_",
-                "infoEmpty": "ไม่มีข้อมูล",
-                "infoFiltered": "(ค้นหาจากทั้งหมด _MAX_ รายการ)",
-                "paginate": {
-                    "first": "หน้าแรก",
-                    "last": "หน้าสุดท้าย",
-                    "next": "ถัดไป",
-                    "previous": "ก่อนหน้า"
-                },
-                "search": "ค้นหา : "
-            }
-        });
-    });
-    </script>
+    <script type="text/javascript" src="{{ asset('assets/js/product.js') }}"></script>
     <!-- ======= Footer ======= -->
     @include('../footer')
 

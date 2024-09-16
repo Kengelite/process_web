@@ -37,8 +37,18 @@
     <link href="/assets/vendor/simple-datatables/style.css" rel="stylesheet">
 
     <!-- Template Main CSS File -->
-    <link href="/assets/css/style.css" rel="stylesheet">
+    <link rel="stylesheet" href="{{ asset('assets/css/style.css') }}">
+    <!-- <link href="/assets/css/style.css" rel="stylesheet"> -->
 
+    <style>
+    .center-search {
+        display: flex;
+        justify-content: center;
+        /* จัดให้อยู่ตรงกลาง */
+        margin-bottom: 20px;
+        /* เพิ่มระยะห่างด้านล่าง */
+    }
+    </style>
     <!-- =======================================================
   * Template Name: NiceAdmin
   * Template URL: https://bootstrapmade.com/nice-admin-bootstrap-admin-html-template/
@@ -58,12 +68,14 @@
     <main id="main" class="main fs-5">
 
         <div class="pagetitle">
-            <h1> กระบวนการ ( Process ) </h1>
+            <h1> ผลิตภัณฑ์ ( Product ) </h1>
             <nav>
                 <!-- <ol class="breadcrumb">
           <li class="breadcrumb-item"><a href="index.html">Home</a></li>
           <li class="breadcrumb-item active">Dashboard</li>
         </ol> -->
+                <!-- <span> ทรัพย์สินองค์กร ( CP Assets ) </span> -->
+
                 <span> Process ID : 123456789</span>
             </nav>
         </div><!-- End Page Title -->
@@ -103,7 +115,7 @@
                     <div class="card info-card sales-card">
 
                         <div class="card-body">
-                            <h5 class="card-title">อาจารย์รับผิดชอบ
+                            <h5 class="card-title">กระบวนการ
                                 <!-- <span>| Asian</span> -->
                             </h5>
 
@@ -131,7 +143,7 @@
 
 
                         <div class="card-body">
-                            <h5 class="card-title"> เจ้าหน้าที่รับผิดชอบ
+                            <h5 class="card-title"> โปรเจค
                                 <!-- <span>| Thailand</span> -->
                             </h5>
 
@@ -160,7 +172,7 @@
 
 
                         <div class="card-body">
-                            <h5 class="card-title"> ฝ่ายที่รับผิดชอบ
+                            <h5 class="card-title"> ผลิตภัณฑ์
                                 <!-- <span>| Thailand</span> -->
                             </h5>
 
@@ -181,7 +193,7 @@
                     </div>
 
                 </div><!-- End Customers Card -->
-         
+
                 <!-- Left side columns -->
                 <div class="col-lg-12">
                     <div class="row">
@@ -189,19 +201,19 @@
                         <div class="col-12">
                             <div class="card recent-sales overflow-auto">
 
-                                <div class="filter" style="margin-right: 8%;">
+                                <div class="filter" style="margin-right: 3%;">
 
                                     <button class="btn btn-success ml-auto">เพิ่มข้อมูล</button>
                                 </div>
 
                                 <div class="card-body">
                                     <h5 class="card-title d-flex justify-content-between align-items-center">
-                                    รายการกระบวนการทั้งหมด
+                                        รายการโปรเจคทั้งหมด
                                         <!-- <button class="btn btn-success ml-auto"
                                             style="margin-right: 8%;">เพิ่มข้อมูล</button> -->
                                     </h5>
 
-                                    <table id="example" class="display pt-2 table table-borderless  datatable fs-6"
+                                    <table id="product" class="display pt-2 table table-borderless  datatable fs-6"
                                         style="width:100%">
                                         <thead class="pt-3">
                                             <tr class="table-secondary">
@@ -236,7 +248,8 @@
                                                 <td>{{$document->cotton_name}}</td>
                                                 <td>{{$document->year_name}}</td>
                                                 <td>
-                                                    <buntton class="btn btn-primary btndata" id="{{$loop->iteration}}">ข้อมูล</buntton>
+                                                    <buntton class="btn btn-primary btndata" id="{{$loop->iteration}}">
+                                                        ข้อมูล</buntton>
                                                 </td>
                                             </tr>
                                             @endforeach
@@ -255,7 +268,7 @@
         </section>
 
     </main><!-- End #main -->
-    <script type="text/javascript" src="{{ asset('assets/js/process.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('assets/js/product.js') }}"></script>
     <!-- ======= Footer ======= -->
     @include('../footer')
 

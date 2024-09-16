@@ -38,6 +38,7 @@
 
     <!-- Template Main CSS File -->
     <link rel="stylesheet" href="{{ asset('assets/css/style.css') }}">
+
     <!-- <link href="/assets/css/style.css" rel="stylesheet"> -->
 
     <style>
@@ -86,7 +87,7 @@
                     <div class="card info-card sales-card">
 
                         <div class="card-body">
-                            <h5 class="card-title">จำนวน
+                            <h5 class="card-title">ทั้งหมด
                                 <!-- <span>| World</span> -->
                             </h5>
 
@@ -96,10 +97,10 @@
                                     <!-- <i class="bi bi-trophy" style="color:tomato;"></i> -->
                                 </div>
                                 <div class="ps-3">
-                                    <h6>753</h6>
-                                    <span class="text-success small pt-1 fw-bold"> <i
+                                    <h6>{{$total_assets}}</h6>
+                                    <!-- <span class="text-success small pt-1 fw-bold"> <i
                                             class="bi bi-arrow-up-circle-fill"></i>
-                                        1</span> <span class="text-muted small pt-2 ps-1">increase</span>
+                                        1</span> <span class="text-muted small pt-2 ps-1">increase</span> -->
 
                                 </div>
                             </div>
@@ -119,13 +120,18 @@
 
                             <div class="d-flex align-items-center">
                                 <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
-                                    <i class="bi bi-globe-central-south-asia"></i>
+                                    <i class="ri-file-text-line"></i>
                                 </div>
                                 <div class="ps-3">
-                                    <h6>304</h6>
-                                    <span class="text-success small pt-1 fw-bold"> <i
+                                    <h6>
+                                        @php
+                                        $typeOne = $total_all->firstWhere('id_type', 1);
+                                        @endphp
+                                        {{ $typeOne ? $typeOne->total : 0 }}
+                                    </h6>
+                                    <!-- <span class="text-success small pt-1 fw-bold"> <i
                                             class="bi bi-arrow-up-circle-fill"></i>
-                                        2</span> <span class="text-muted small pt-2 ps-1">increase</span>
+                                        2</span> <span class="text-muted small pt-2 ps-1">increase</span> -->
 
                                 </div>
                             </div>
@@ -147,13 +153,18 @@
 
                             <div class="d-flex align-items-center">
                                 <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
-                                    <i class="bi bi-trophy"></i>
+                                    <i class="ri-file-list-2-line"></i>
                                 </div>
                                 <div class="ps-3">
-                                    <h6>4</h6>
-                                    <span class="text-danger small pt-1 fw-bold"> <i
+                                    <h6>
+                                        @php
+                                        $typeOne = $total_all->firstWhere('id_type',2);
+                                        @endphp
+                                        {{ $typeOne ? $typeOne->total : 0 }}
+                                    </h6>
+                                    <!-- <span class="text-danger small pt-1 fw-bold"> <i
                                             class="bi bi-arrow-down-circle-fill"></i>
-                                        1</span> <span class="text-muted small pt-2 ps-1">decrease</span>
+                                        1</span> <span class="text-muted small pt-2 ps-1">decrease</span> -->
 
                                 </div>
                             </div>
@@ -176,13 +187,18 @@
 
                             <div class="d-flex align-items-center">
                                 <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
-                                    <i class="bi bi-trophy"></i>
+                                    <i class="ri-file-list-3-line"></i>
                                 </div>
                                 <div class="ps-3">
-                                    <h6>4</h6>
-                                    <span class="text-danger small pt-1 fw-bold"> <i
+                                    <h6> @php
+                                        $typeOne = $total_all->firstWhere('id_type',3);
+                                        @endphp
+                                        {{ $typeOne ? $typeOne->total : 0 }}
+
+                                    </h6>
+                                    <!-- <span class="text-danger small pt-1 fw-bold"> <i
                                             class="bi bi-arrow-down-circle-fill"></i>
-                                        1</span> <span class="text-muted small pt-2 ps-1">decrease</span>
+                                        1</span> <span class="text-muted small pt-2 ps-1">decrease</span> -->
 
                                 </div>
                             </div>
@@ -246,7 +262,8 @@
                                                 <td>{{$document->cotton_name}}</td>
                                                 <td>{{$document->year_name}}</td>
                                                 <td>
-                                                    <buntton class="btn btn-primary btndata" id="{{$loop->iteration}}">ข้อมูล</buntton>
+                                                    <a href="{{route('pageselectdata')}}" class="btn btn-primary " id="{{$loop->iteration}}">
+                                                        ข้อมูล</a>
                                                 </td>
                                             </tr>
                                             @endforeach
@@ -265,46 +282,10 @@
         </section>
 
     </main><!-- End #main -->
-    <script>
-    $(document).ready(function() {
 
-        $('.btndata').on('click', function(e) {
-            e.preventDefault();
-            console.log(this.id);
-            $('#head').html("web ง่ายนิดเดียว");
-        })
-
-        $('#example').DataTable({
-            "paging": true, // เปิดการแบ่งหน้า
-            "searching": true, // เปิดการค้นหา
-            "ordering": true, // เปิดการจัดเรียง
-            "info": true // แสดงข้อมูลเพิ่มเติม เช่น จำนวนรายการ
-                ,
-            "language": {
-                "lengthMenu": "แสดง _MENU_ รายการต่อหน้า",
-                "zeroRecords": "ไม่พบข้อมูล",
-                "info": "แสดงหน้า _PAGE_ จาก _PAGES_",
-                "infoEmpty": "ไม่มีข้อมูล",
-                "infoFiltered": "(ค้นหาจากทั้งหมด _MAX_ รายการ)",
-                "paginate": {
-                    "first": "หน้าแรก",
-                    "last": "หน้าสุดท้าย",
-                    "next": "ถัดไป",
-                    "previous": "ก่อนหน้า"
-                },
-                "search": "ค้นหา : "
-            },
-            "fnDrawCallback": function() {
-                $('.paginate_button').addClass('btn btn-light'); // เพิ่มคลาส btn
-                $('.paginate_button.current').removeClass('btn-light').addClass(
-                    'btn-primary'); // ปุ่มปัจจุบันเป็น btn-primary
-            }
-        });
-    });
-    </script>
     <!-- ======= Footer ======= -->
     @include('../footer')
-
+    <script type="text/javascript" src="{{ asset('assets/js/datatable.js') }}"></script>
     <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i
             class="bi bi-arrow-up-short"></i></a>
 

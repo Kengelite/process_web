@@ -9,12 +9,12 @@
   <i class="bi bi-list toggle-sidebar-btn ps-3"></i>
 </div><!-- End Logo -->
 
-<div class="search-bar input-group ms-5 me-5">
+<!-- <div class="search-bar input-group ms-5 me-5">
     <input type="text" name="query" class="form-control" placeholder="Search" title="Enter search keyword">
     <button class="btn btn-outline-secondary" type="submit" title="Search">
         <i class="bi bi-search"></i>
     </button>
-</div><!-- End Search Bar -->
+</div> -->
 
 <nav class="header-nav ms-auto">
   <ul class="d-flex align-items-center">
