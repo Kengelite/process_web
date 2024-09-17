@@ -16,7 +16,17 @@ class UserController extends Controller
         ->leftJoin('employees', 'start_employee', '=', 'emp_id')
         ->leftJoin('cotton', 'id_cotton', '=', 'cotton_id')
         ->leftJoin('years', 'id_year', '=', 'year_id')
+        ->select('documents.*', 'type_alls.type_all_name', 'teachers.teacher_name', 'employees.emp_name', 'cotton.cotton_name', 'years.year_name')
         ->get();
+
+    foreach ($documents as $document) {
+        if ($document->end_time) {
+            $endDate = Carbon::parse($document->end_time);
+            $document->days_remaining = (int) Carbon::now()->diffInDays($endDate, false);
+        } else {
+            $document->days_remaining = "สิ้นสุดกำหนดการ"; // หรือค่าเริ่มต้นที่คุณต้องการ
+        }
+    }
 
         $total_assets = DB::table('documents')->count();
         // $total_assets_today = DB::table('documents')
@@ -106,6 +116,22 @@ class UserController extends Controller
         return view('user.index');
         // return view('user.form', ['quiz' => $quiz]);
 
+    }
+    public function selectshowdata(string $id): View
+    {
+        $documents = DB::table('documents')
+        ->leftJoin('type_alls', 'id_type', '=', 'type_all_id')
+        ->leftJoin('teachers', 'start_teacher', '=', 'teacher_id')
+        ->leftJoin('employees', 'start_employee', '=', 'emp_id')
+        ->leftJoin('cotton', 'id_cotton', '=', 'cotton_id')
+        ->leftJoin('years', 'id_year', '=', 'year_id')
+        ->where('documnet_id','=',$id)
+        ->get();
+
+        return view('user.page_select_data', [
+            // 'user' => User::findOrFail($id)
+            'documents' => $documents
+        ]);
     }
     public function shownextform(Request $request)
     {

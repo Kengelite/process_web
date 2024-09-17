@@ -48,9 +48,9 @@ Route::get('/pageout', function () {
     return view('login') ;
 })->name('pageout');
 
-Route::get('/selectdata', function () {
-    return view('user.page_select_data') ;
-})->name('pageselectdata');
+// Route::get('/selectdata', function () {
+//     return view('user.page_select_data') ;
+// })->name('pageselectdata');
 
 
 
@@ -59,6 +59,8 @@ Route::get('/pagedataforproject', [UserController::class, 'showproject'])->name(
 Route::get('/pagedataforproduct', [UserController::class, 'showproduct'])->name('pageproduct');
 Route::get('/pagedataforemployee', [UserController::class, 'showemployee'])->name('pageemployee');
 Route::get('/pagedataforteacher', [UserController::class, 'showeteacher'])->name('pageteacher');
+Route::get('/selectdata/{id}', [UserController::class, 'selectshowdata'])->name('pageselectdata');
+
 
 
 

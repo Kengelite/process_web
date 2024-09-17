@@ -75,7 +75,7 @@
           <li class="breadcrumb-item"><a href="index.html">Home</a></li>
           <li class="breadcrumb-item active">Dashboard</li>
         </ol> -->
-                <span> เลขอ้างอิง : 1121211 </span>
+                <!-- <span> เลขอ้างอิง : 1121211 </span> -->
             </nav>
         </div><!-- End Page Title -->
 
@@ -86,23 +86,123 @@
                 <div class="col-lg-12">
                     <div class="row">
                         <!-- Recent Sales -->
-                        <div class="col-12">
-                            <div class="card recent-sales overflow-auto">
+                        <div class="col-12 ">
+                            <div class="card recent-sales overflow-auto pt-2 ps-2">
 
-                                <div class="filter" style="margin-right: 3%;">
+                                <!-- <div class="filter" style="margin-right: 3%;">
 
                                     <button class="btn btn-success ml-auto">เพิ่มข้อมูล</button>
-                                </div>
+                                </div> -->
 
-                                <div class="card-body">
+                                <div class="card-body ">
                                     <h5 id="head" class="card-title d-flex justify-content-between align-items-center">
-                                        รายการทรัพย์สินทั้งหมด
-                                        <!-- <button class="btn btn-success ml-auto"
-                                            style="margin-right: 8%;">เพิ่มข้อมูล</button> -->
+                                        <div class="row">
+                                            <!-- หมายเลขอ้างอิง -->
+                                            <div class="mb-3 col-xl-6 mt-3">
+                                                <label for="id_number_page" class="form-label">หมายเลขอ้างอิง</label>
+                                                <div class="input-group">
+                                                    <input class="form-control" readonly type="text" id="id_number_page"
+                                                        value="{{ $documents[0]->id_number }}"
+                                                        aria-describedby="basic-addon1">
+                                                    <button class="input-group-text color-success" id="basic-addon1"><i
+                                                            class='bx bxs-edit'></i></button>
+                                                </div>
+                                            </div>
+
+                                            <!-- ชื่อเอกสาร -->
+                                            <div class="mb-3 col-xl-6 mt-3">
+                                                <label for="document_name" class="form-label">ชื่อเอกสาร</label>
+                                                <div class="input-group">
+                                                    <input class="form-control" readonly type="text" id="document_name"
+                                                        value="{{ $documents[0]->document_name }}">
+                                                    <button class="input-group-text color-success" id="basic-addon2"><i
+                                                            class='bx bxs-edit'></i></button>
+                                                </div>
+                                            </div>
+
+                                            <!-- เวอร์ชัน -->
+                                            <div class="mb-3 col-xl-6 mt-3">
+                                                <label for="version" class="form-label">เวอร์ชัน</label>
+                                                <div class="input-group">
+                                                    <input class="form-control" readonly type="text" id="version"
+                                                        value="{{ $documents[0]->version }}">
+                                                    <button class="input-group-text color-success" id="basic-addon3"><i
+                                                            class='bx bxs-edit'></i></button>
+                                                </div>
+                                            </div>
+
+                                            <!-- เวลาเสร็จสิ้น -->
+                                            <div class="mb-3 col-xl-6 mt-3">
+                                                <label for="end_time" class="form-label">เวลาเสร็จสิ้น</label>
+                                                <div class="input-group">
+                                                <input class="form-control" readonly type="datetime-local" id="end_time"
+                                                value="{{ \Carbon\Carbon::parse($documents[0]->end_time)->format('Y-m-d\TH:i') }}">
+                                                    <button class="input-group-text color-success" id="basic-addon4"><i
+                                                            class='bx bxs-edit'></i></button>
+                                                </div>
+                                            </div>
+
+                                            <!-- ปี -->
+                                            <div class="mb-3 col-xl-6 mt-3">
+                                                <label for="year_name" class="form-label">ปี</label>
+                                                <div class="input-group">
+                                                    <input class="form-control" readonly type="text" id="year_name"
+                                                        value="{{ $documents[0]->year_name }}">
+                                                    <button class="input-group-text color-success" id="basic-addon5"><i
+                                                            class='bx bxs-edit'></i></button>
+                                                </div>
+                                            </div>
+
+                                            <!-- ฝ้าย -->
+                                            <div class="mb-3 col-xl-6 mt-3">
+                                                <label for="cotton_name" class="form-label">ฝ้าย</label>
+                                                <div class="input-group">
+                                                    <input class="form-control" readonly type="text" id="cotton_name"
+                                                        value="{{ $documents[0]->cotton_name }}">
+                                                    <button class="input-group-text color-success" id="basic-addon6"><i
+                                                            class='bx bxs-edit'></i></button>
+                                                </div>
+                                            </div>
+
+                                            <!-- ประเภท -->
+                                            <div class="mb-3 col-xl-6 mt-3">
+                                                <label for="type_all_name" class="form-label">ประเภท</label>
+                                                <div class="input-group">
+                                                    <input class="form-control" readonly type="text" id="type_all_name"
+                                                        value="{{ $documents[0]->type_all_name }}">
+                                                    <button class="input-group-text color-success" id="basic-addon7"><i
+                                                            class='bx bxs-edit'></i></button>
+                                                </div>
+                                            </div>
+
+                                            <!-- ชื่อครู -->
+                                            <div class="mb-3 col-xl-6 mt-3">
+                                                <label for="teacher_name" class="form-label">ชื่อครู</label>
+                                                <div class="input-group">
+                                                    <input class="form-control" readonly type="text" id="teacher_name"
+                                                        value="{{ $documents[0]->teacher_name }}">
+                                                    <button class="input-group-text color-success" id="basic-addon8"><i
+                                                            class='bx bxs-edit'></i></button>
+                                                </div>
+                                            </div>
+
+                                            <!-- ชื่อพนักงาน -->
+                                            <div class="mb-3 col-xl-6 mt-3">
+                                                <label for="emp_name" class="form-label">ชื่อพนักงาน</label>
+                                                <div class="input-group">
+                                                    <input class="form-control" readonly type="text" id="emp_name"
+                                                        value="{{ $documents[0]->emp_name }}">
+                                                    <button class="input-group-text color-success" id="basic-addon9"><i
+                                                            class='bx bxs-edit'></i></button>
+                                                </div>
+                                            </div>
+                                        </div>
+
+
                                     </h5>
 
                                 </div>
-
+                                {{$documents}}
                             </div>
                         </div><!-- End Recent Sales -->
                     </div>

@@ -89,6 +89,7 @@ return new class extends Migration
             $table->string('id_number'); // เพิ่มคอลัมน์สำหรับ FK
             $table->string('document_name');
             $table->integer('version');
+            // $table->text('description')->nullable();
             $table->timestamp('end_time')->nullable();
             $table->unsignedInteger('id_year'); 
             $table->unsignedInteger('id_cotton'); 

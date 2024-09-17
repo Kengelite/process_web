@@ -238,6 +238,7 @@
                                                 <th scope="col">เจ้าหน้าที่</th>
                                                 <th scope="col">อาจารย์</th>
                                                 <th scope="col">หน่วยงาน</th>
+                                                <th scope="col">ระยะเวลา</th>
                                                 <th scope="col">ปี</th>
                                                 <th scope="col"> </th>
                                             </tr>
@@ -260,10 +261,13 @@
 
                                                 <td>{{ $document->teacher_name ?? '-' }}</td>
                                                 <td>{{$document->cotton_name}}</td>
+                                                <td style="text-align:center">{{$document->days_remaining}}  วัน</td>
                                                 <td>{{$document->year_name}}</td>
                                                 <td>
-                                                    <a href="{{route('pageselectdata')}}" class="btn btn-primary " id="{{$loop->iteration}}">
-                                                        ข้อมูล</a>
+                                                    <a href="{{ route('pageselectdata', ['id' => $document->documnet_id]) }}"
+                                                        class="btn btn-primary" id="{{$document->documnet_id }}">
+                                                        ข้อมูล
+                                                    </a>
                                                 </td>
                                             </tr>
                                             @endforeach
