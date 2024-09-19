@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8">
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
-
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>CP - Assets</title>
     <meta content="" name="description">
     <meta content="" name="keywords">
@@ -38,6 +38,7 @@
 
     <!-- Template Main CSS File -->
     <link rel="stylesheet" href="{{ asset('assets/css/style.css') }}">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
     <!-- <link href="/assets/css/style.css" rel="stylesheet"> -->
 
@@ -102,10 +103,12 @@
                                                 <label for="id_number_page" class="form-label">หมายเลขอ้างอิง</label>
                                                 <div class="input-group">
                                                     <input class="form-control" readonly type="text" id="id_number_page"
-                                                        value="{{ $documents[0]->id_number }}"
+                                                        value="{{ $documents->id_number }}"
                                                         aria-describedby="basic-addon1">
-                                                    <button class="input-group-text color-success" id="basic-addon1"><i
-                                                            class='bx bxs-edit'></i></button>
+                                                    <button class="input-group-text color-success"
+                                                        id="btn_edit_id_number"
+                                                        style="background-color: #b3e5fc; color: black;">
+                                                        <i class='bx bxs-edit'></i>
                                                 </div>
                                             </div>
 
@@ -114,9 +117,10 @@
                                                 <label for="document_name" class="form-label">ชื่อเอกสาร</label>
                                                 <div class="input-group">
                                                     <input class="form-control" readonly type="text" id="document_name"
-                                                        value="{{ $documents[0]->document_name }}">
-                                                    <button class="input-group-text color-success" id="basic-addon2"><i
-                                                            class='bx bxs-edit'></i></button>
+                                                        value="{{ $documents->document_name }}">
+                                                    <button class="input-group-text color-success" id="basic-addon2"
+                                                        style="background-color: #b3e5fc; color: black;">
+                                                        <i class='bx bxs-edit'></i>
                                                 </div>
                                             </div>
 
@@ -125,9 +129,10 @@
                                                 <label for="version" class="form-label">เวอร์ชัน</label>
                                                 <div class="input-group">
                                                     <input class="form-control" readonly type="text" id="version"
-                                                        value="{{ $documents[0]->version }}">
-                                                    <button class="input-group-text color-success" id="basic-addon3"><i
-                                                            class='bx bxs-edit'></i></button>
+                                                        value="{{ $documents->version }}">
+                                                    <button class="input-group-text color-success" id="basic-addon3"
+                                                        style="background-color: #b3e5fc; color: black;">
+                                                        <i class='bx bxs-edit'></i>
                                                 </div>
                                             </div>
 
@@ -135,10 +140,12 @@
                                             <div class="mb-3 col-xl-6 mt-3">
                                                 <label for="end_time" class="form-label">เวลาเสร็จสิ้น</label>
                                                 <div class="input-group">
-                                                <input class="form-control" readonly type="datetime-local" id="end_time"
-                                                value="{{ \Carbon\Carbon::parse($documents[0]->end_time)->format('Y-m-d\TH:i') }}">
-                                                    <button class="input-group-text color-success" id="basic-addon4"><i
-                                                            class='bx bxs-edit'></i></button>
+                                                    <input class="form-control" readonly type="datetime-local"
+                                                        id="end_time"
+                                                        value="{{ \Carbon\Carbon::parse($documents->end_time)->format('Y-m-d\TH:i') }}">
+                                                    <button class="input-group-text color-success" id="basic-addon4"
+                                                        style="background-color: #b3e5fc; color: black;">
+                                                        <i class='bx bxs-edit'></i>
                                                 </div>
                                             </div>
 
@@ -147,9 +154,10 @@
                                                 <label for="year_name" class="form-label">ปี</label>
                                                 <div class="input-group">
                                                     <input class="form-control" readonly type="text" id="year_name"
-                                                        value="{{ $documents[0]->year_name }}">
-                                                    <button class="input-group-text color-success" id="basic-addon5"><i
-                                                            class='bx bxs-edit'></i></button>
+                                                        value="{{ $documents->year_name }}">
+                                                    <button class="input-group-text color-success" id="basic-addon5"
+                                                        style="background-color: #b3e5fc; color: black;">
+                                                        <i class='bx bxs-edit'></i>
                                                 </div>
                                             </div>
 
@@ -158,9 +166,10 @@
                                                 <label for="cotton_name" class="form-label">ฝ้าย</label>
                                                 <div class="input-group">
                                                     <input class="form-control" readonly type="text" id="cotton_name"
-                                                        value="{{ $documents[0]->cotton_name }}">
-                                                    <button class="input-group-text color-success" id="basic-addon6"><i
-                                                            class='bx bxs-edit'></i></button>
+                                                        value="{{ $documents->cotton_name }}">
+                                                    <button class="input-group-text color-success" id="basic-addon6"
+                                                        style="background-color: #b3e5fc; color: black;">
+                                                        <i class='bx bxs-edit'></i>
                                                 </div>
                                             </div>
 
@@ -169,31 +178,37 @@
                                                 <label for="type_all_name" class="form-label">ประเภท</label>
                                                 <div class="input-group">
                                                     <input class="form-control" readonly type="text" id="type_all_name"
-                                                        value="{{ $documents[0]->type_all_name }}">
-                                                    <button class="input-group-text color-success" id="basic-addon7"><i
-                                                            class='bx bxs-edit'></i></button>
+                                                        value="{{ $documents->type_all_name }}">
+                                                    <button class="input-group-text color-success" id="basic-addon7"
+                                                        style="background-color: #b3e5fc; color: black;">
+                                                        <i class='bx bxs-edit'></i>
                                                 </div>
                                             </div>
 
                                             <!-- ชื่อครู -->
                                             <div class="mb-3 col-xl-6 mt-3">
-                                                <label for="teacher_name" class="form-label">ชื่อครู</label>
+                                                <label for="teacher_name"
+                                                    class="form-label">ชื่ออาจารย์ผู้รับผิดชอบ</label>
                                                 <div class="input-group">
                                                     <input class="form-control" readonly type="text" id="teacher_name"
-                                                        value="{{ $documents[0]->teacher_name }}">
-                                                    <button class="input-group-text color-success" id="basic-addon8"><i
-                                                            class='bx bxs-edit'></i></button>
+                                                        value="{{ $documents->teacher_name != '' ? $documents->teacher_name : '-' }}">
+                                                    <button class="input-group-text color-success" id="basic-addon8"
+                                                        style="background-color: #b3e5fc; color: black;">
+                                                        <i class='bx bxs-edit'></i>
                                                 </div>
                                             </div>
 
                                             <!-- ชื่อพนักงาน -->
                                             <div class="mb-3 col-xl-6 mt-3">
-                                                <label for="emp_name" class="form-label">ชื่อพนักงาน</label>
+                                                <label for="emp_name"
+                                                    class="form-label">ชื่อเจ้าหน้าที่ผู้รับผิดชอบ</label>
                                                 <div class="input-group">
                                                     <input class="form-control" readonly type="text" id="emp_name"
-                                                        value="{{ $documents[0]->emp_name }}">
-                                                    <button class="input-group-text color-success" id="basic-addon9"><i
-                                                            class='bx bxs-edit'></i></button>
+                                                        value="{{ $documents->emp_name != '' ? $documents->emp_name : '-' }}">
+                                                    <button class="input-group-text" id="basic-addon9"
+                                                        style="background-color: #b3e5fc; color: black;">
+                                                        <i class='bx bxs-edit'></i>
+                                                    </button>
                                                 </div>
                                             </div>
                                         </div>
@@ -202,7 +217,52 @@
                                     </h5>
 
                                 </div>
-                                {{$documents}}
+
+                            </div>
+                        </div><!-- End Recent Sales -->
+                    </div>
+                    <div class="row">
+                        <!-- Recent Sales -->
+                        <div class="col-12">
+                            <div class="card recent-sales overflow-auto">
+
+                                <div class="filter" style="margin-right: 3%;">
+
+                                    <button class="btn btn-success ml-auto">เพิ่มข้อมูล</button>
+                                </div>
+
+                                <div class="card-body">
+                                    <h5 id="head" class="card-title d-flex justify-content-between align-items-center">
+                                        ไฟล์เอกสารทั้งหมด
+                                        <!-- <button class="btn btn-success ml-auto"
+                                            style="margin-right: 8%;">เพิ่มข้อมูล</button> -->
+                                    </h5>
+
+                                    <table id="example" class="display pt-2 table table-borderless  datatable fs-6"
+                                        style="width:100%">
+                                        <thead class="pt-3">
+                                            <tr class="table-secondary">
+                                                <th scope="col">ลำดับ</th>
+                                                <th scope="col">รูป</th>
+                                                <th scope="col">ชื่อไฟล์</th>
+                                                <th scope="col">วันที่อัพโหลด</th>
+                                                <th scope="col">วันที่แก้ไขล่าสุด</th>
+                                                <!-- <th scope="col">สถานะ</th>
+                                                <th scope="col">อาจารย์</th>
+                                                <th scope="col">หน่วยงาน</th>
+                                                <th scope="col">ระยะเวลา</th> -->
+                                                <!-- <th scope="col">ปี</th> -->
+                                                <th scope="col"> </th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+
+                                            <!-- เพิ่มข้อมูลในตารางตามที่ต้องการ -->
+                                        </tbody>
+                                    </table>
+
+                                </div>
+
                             </div>
                         </div><!-- End Recent Sales -->
                     </div>
@@ -212,10 +272,18 @@
         </section>
 
     </main><!-- End #main -->
-
+    <!-- <script>
+    var editIdUrl = "{{ route('postedit_id_number', ['id' => ':id']) }}";
+    </script> -->
     <!-- ======= Footer ======= -->
     @include('../footer')
-    <script type="text/javascript" src="{{ asset('assets/js/datatable.js') }}"></script>
+    @include('../modal/modal_select_data')
+    <script>
+        let encodedId = localStorage.getItem('encodedId');
+        let postEditIdNumberUrl = "{{ route('postedit_id_number', ['id' =>':id']) }}";
+        url = url.replace(':id', encodedId);
+    </script>
+    <script type="text/javascript" src="{{ asset('assets/js/editmodal.js') }}"></script>
     <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i
             class="bi bi-arrow-up-short"></i></a>
 

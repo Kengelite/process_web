@@ -18,13 +18,20 @@ class UserController extends Controller
         ->leftJoin('years', 'id_year', '=', 'year_id')
         ->select('documents.*', 'type_alls.type_all_name', 'teachers.teacher_name', 'employees.emp_name', 'cotton.cotton_name', 'years.year_name')
         ->get();
-
-    foreach ($documents as $document) {
+        foreach ($documents as $document) {
+            $document->encoded_id = base64_encode($document->documnet_id);
+        }
+        foreach ($documents as $document) {
         if ($document->end_time) {
             $endDate = Carbon::parse($document->end_time);
-            $document->days_remaining = (int) Carbon::now()->diffInDays($endDate, false);
+            $daysRemaining = (int) Carbon::now()->diffInDays($endDate, false);
+            if ($daysRemaining <= 0) {
+                $document->days_remaining = "สิ้นสุด";
+            } else {
+                $document->days_remaining = $daysRemaining . " วัน";
+            }
         } else {
-            $document->days_remaining = "สิ้นสุดกำหนดการ"; // หรือค่าเริ่มต้นที่คุณต้องการ
+            $document->days_remaining = "ไม่ได้ระบุวัน"; // หรือค่าเริ่มต้นที่คุณต้องการ
         }
     }
 
@@ -117,22 +124,78 @@ class UserController extends Controller
         // return view('user.form', ['quiz' => $quiz]);
 
     }
-    public function selectshowdata(string $id): View
+    public function dataPage()
     {
-        $documents = DB::table('documents')
+    $documents = session('document');
+    if (!$documents) {
+        return redirect()->back()->with('error', 'ไม่พบข้อมูล');
+    }
+    return view('user.page_select_data', compact('documents'));
+    }   
+    public function selectshowdata(Request $request)
+    {
+        
+        $encodedId = $request->input('id');
+        $id = base64_decode($encodedId);
+    
+    $document = DB::table('documents')
         ->leftJoin('type_alls', 'id_type', '=', 'type_all_id')
         ->leftJoin('teachers', 'start_teacher', '=', 'teacher_id')
         ->leftJoin('employees', 'start_employee', '=', 'emp_id')
         ->leftJoin('cotton', 'id_cotton', '=', 'cotton_id')
         ->leftJoin('years', 'id_year', '=', 'year_id')
-        ->where('documnet_id','=',$id)
-        ->get();
+        ->where('documnet_id', '=', $id)
+        ->first();
 
-        return view('user.page_select_data', [
-            // 'user' => User::findOrFail($id)
-            'documents' => $documents
-        ]);
+    if (!$document) {
+        abort(404, 'Document not found');
     }
+
+    // return response()->json(['document' => $document]);
+    session(['document' => $document]);
+    return response()->json(['redirect_url' => route('data_page')]);
+    }
+
+
+
+    public function selectshowdata_get($id)
+    {
+        $id = base64_decode($id);
+        // $id = base64_decode($encodedId);
+        // dd($id);
+        $document = DB::table('documents')
+        ->leftJoin('type_alls', 'id_type', '=', 'type_all_id')
+        ->leftJoin('teachers', 'start_teacher', '=', 'teacher_id')
+        ->leftJoin('employees', 'start_employee', '=', 'emp_id')
+        ->leftJoin('cotton', 'id_cotton', '=', 'cotton_id')
+        ->leftJoin('years', 'id_year', '=', 'year_id')
+        ->where('documnet_id', '=', $id)
+        ->first();
+
+        if (!$document) {
+            abort(404, 'Document not found');
+        }
+
+    // return response()->json(['document' => $document]);
+    return view('user.page_select_data', ['documents' => $document]);
+
+    }
+
+
+
+
+
+// แก้ไขข้อมูล id_number
+public function edit_number_controller(Request $request, $id)
+{
+    // รับข้อมูลที่ถูกส่งมาจาก AJAX
+    $newIdValue = $request->input('id_number_new');
+    
+    // ทำการอัพเดตข้อมูลโดยใช้ $id และ $newIdValue
+
+    return response()->json(['success' => true, 'message' => 'ID updated successfully']);
+}
+
     public function shownextform(Request $request)
     {
        

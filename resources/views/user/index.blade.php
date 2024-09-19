@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8">
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
-
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>CP - Assets</title>
     <meta content="" name="description">
     <meta content="" name="keywords">
@@ -261,11 +261,15 @@
 
                                                 <td>{{ $document->teacher_name ?? '-' }}</td>
                                                 <td>{{$document->cotton_name}}</td>
-                                                <td style="text-align:center">{{$document->days_remaining}}  วัน</td>
+                                                <td style="text-align:center">{{$document->days_remaining}} </td>
                                                 <td>{{$document->year_name}}</td>
                                                 <td>
-                                                    <a href="{{ route('pageselectdata', ['id' => $document->documnet_id]) }}"
-                                                        class="btn btn-primary" id="{{$document->documnet_id }}">
+                                                    <!-- <button class="btn btn-primary btn_id_show"
+                                                        data-id="{{$document->encoded_id }}">
+                                                        ข้อมูล
+                                                    </button> -->
+                                                    <a class="btn btn-primary btn_id_show" data-id="{{ $document->encoded_id }}"
+                                                        href="{{ route('pageselectdata_get', ['id' => $document->encoded_id]) }}">
                                                         ข้อมูล
                                                     </a>
                                                 </td>
@@ -289,6 +293,42 @@
 
     <!-- ======= Footer ======= -->
     @include('../footer')
+
+    <script>
+    $(document).ready(function() {
+        $('.btn_id_show').click(function(event) {
+            var encodedId = $(this).data('id');
+            localStorage.setItem('encodedId', encodedId);
+        });
+        // $('.btn_id_show').click(function(event) {
+        //     // event.preventDefault(); 
+
+        //     var documentId = $(this).data('id'); // ดึง id จาก data-id
+        //     console.log(documentId)
+
+        //     $.ajax({
+        //         type: 'post',
+        //         url: "{{route('pageselectdata')}}", // URL ที่ต้องการส่งข้อมูลไป
+        //         data: {
+        //             id: documentId
+        //         },
+        //         // dataType: "json",
+        //         headers: {
+        //             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        //         },
+        //         success: function(response) {
+        //             // Redirect handled by the server
+        //             window.location.href = response.redirect_url;
+        //         },
+        //         error: function(xhr, status, error) {
+        //             console.log(error);
+        //             alert("เกิดข้อผิดพลาดกรุณาลองใหม่อีกครั้ง");
+        //         },
+        //     });
+        // });
+
+    });
+    </script>
     <script type="text/javascript" src="{{ asset('assets/js/datatable.js') }}"></script>
     <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i
             class="bi bi-arrow-up-short"></i></a>
