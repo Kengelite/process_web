@@ -8,6 +8,7 @@
     <title>CP - Assets</title>
     <meta content="" name="description">
     <meta content="" name="keywords">
+    <link rel="icon" href="/assets/images/icon/cpkkuicon.ico" rel="icon" type="image/x-icon">
     <!-- DataTables CSS -->
     <link rel="stylesheet" type="text/css" href="//cdn.datatables.net/1.10.21/css/jquery.dataTables.min.css">
 
@@ -18,8 +19,8 @@
     <script type="text/javascript" charset="utf8" src="//cdn.datatables.net/1.10.21/js/jquery.dataTables.min.js">
     </script>
     <!-- Favicons -->
-    <link href="/assets/img/favicon.png" rel="icon">
-    <link href="/assets/img/apple-touch-icon.png" rel="apple-touch-icon">
+    <!-- <link href="/assets/img/favicon.png" rel="icon">
+    <link href="/assets/img/apple-touch-icon.png" rel="apple-touch-icon"> -->
 
     <!-- Google Fonts -->
     <link href="https://fonts.gstatic.com" rel="preconnect">
@@ -118,7 +119,7 @@
                                                 <div class="input-group">
                                                     <input class="form-control" readonly type="text" id="document_name"
                                                         value="{{ $documents->document_name }}">
-                                                    <button class="input-group-text color-success" id="basic-addon2"
+                                                    <button class="input-group-text color-success" id="btn_edit_name"
                                                         style="background-color: #b3e5fc; color: black;">
                                                         <i class='bx bxs-edit'></i>
                                                 </div>
@@ -130,7 +131,7 @@
                                                 <div class="input-group">
                                                     <input class="form-control" readonly type="text" id="version"
                                                         value="{{ $documents->version }}">
-                                                    <button class="input-group-text color-success" id="basic-addon3"
+                                                    <button class="input-group-text color-success" id="btn_edit_version"
                                                         style="background-color: #b3e5fc; color: black;">
                                                         <i class='bx bxs-edit'></i>
                                                 </div>
@@ -143,7 +144,7 @@
                                                     <input class="form-control" readonly type="datetime-local"
                                                         id="end_time"
                                                         value="{{ \Carbon\Carbon::parse($documents->end_time)->format('Y-m-d\TH:i') }}">
-                                                    <button class="input-group-text color-success" id="basic-addon4"
+                                                    <button class="input-group-text color-success" id="btn_edit_end_time"
                                                         style="background-color: #b3e5fc; color: black;">
                                                         <i class='bx bxs-edit'></i>
                                                 </div>
@@ -151,11 +152,11 @@
 
                                             <!-- ปี -->
                                             <div class="mb-3 col-xl-6 mt-3">
-                                                <label for="year_name" class="form-label">ปี</label>
+                                                <label for="year_name" class="form-label">ปี (ค.ศ.)</label>
                                                 <div class="input-group">
                                                     <input class="form-control" readonly type="text" id="year_name"
                                                         value="{{ $documents->year_name }}">
-                                                    <button class="input-group-text color-success" id="basic-addon5"
+                                                    <button class="input-group-text color-success" id="btn_edit_year"
                                                         style="background-color: #b3e5fc; color: black;">
                                                         <i class='bx bxs-edit'></i>
                                                 </div>
@@ -163,7 +164,7 @@
 
                                             <!-- ฝ้าย -->
                                             <div class="mb-3 col-xl-6 mt-3">
-                                                <label for="cotton_name" class="form-label">ฝ้าย</label>
+                                                <label for="cotton_name" class="form-label">ฝ่าย</label>
                                                 <div class="input-group">
                                                     <input class="form-control" readonly type="text" id="cotton_name"
                                                         value="{{ $documents->cotton_name }}">
@@ -277,12 +278,20 @@
     </script> -->
     <!-- ======= Footer ======= -->
     @include('../footer')
-    @include('../modal/modal_select_data')
+  
     <script>
-        let encodedId = localStorage.getItem('encodedId');
-        let postEditIdNumberUrl = "{{ route('postedit_id_number', ['id' =>':id']) }}";
-        url = url.replace(':id', encodedId);
+    let encodedId = localStorage.getItem('encodedId');
+    let postEditIdNumberUrl ;
+    // ตรวจสอบว่า encodedId มีค่าอยู่หรือไม่
+    if (!encodedId) {
+        console.error("encodedId is undefined or null. Please check if it has been set in localStorage.");
+    } else {
+         postEditIdNumberUrl = "{{ route('postedit_id_number', ['id' => ':id']) }}";
+        postEditIdNumberUrl = postEditIdNumberUrl.replace(':id', encodedId);
+        console.log(postEditIdNumberUrl); // ตรวจสอบ URL ที่ได้
+    }
     </script>
+      @include('../modal/modal_select_data')
     <script type="text/javascript" src="{{ asset('assets/js/editmodal.js') }}"></script>
     <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i
             class="bi bi-arrow-up-short"></i></a>

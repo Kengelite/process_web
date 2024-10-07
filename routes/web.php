@@ -52,8 +52,10 @@ Route::get('/pageout', function () {
 //     return view('user.page_select_data') ;
 // })->name('pageselectdata');
 
+
 Route::get('/pageselectdata_get/{id}', [UserController::class, 'selectshowdata_get'])->name('pageselectdata_get');
-Route::post('/pageselectdata_get/{id}/edit_id_number', [UserController::class, 'edit_number_controller'])->name('postedit_id_number');
+Route::post('/pageselectdata_get/{id}/edit_data', [UserController::class, 'edit_number_controller'])->name('postedit_id_number');
+Route::post('/pageselectdata_get/{id}/edit_data/getdata_year', [UserController::class, 'get_data_year'])->name('postget_data_year');
 
 
 Route::get('/pagedataforprocess', [UserController::class, 'showprocess'])->name('pageprocess');

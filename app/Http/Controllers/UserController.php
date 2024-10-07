@@ -188,14 +188,82 @@ class UserController extends Controller
 // แก้ไขข้อมูล id_number
 public function edit_number_controller(Request $request, $id)
 {
-    // รับข้อมูลที่ถูกส่งมาจาก AJAX
-    $newIdValue = $request->input('id_number_new');
-    
-    // ทำการอัพเดตข้อมูลโดยใช้ $id และ $newIdValue
+    if ($id) {
+        // Base64 decode ถ้า id ถูกเข้ารหัส
+        $id_col = base64_decode($id);
+        $newIdValue = $request->input('data_value');
+        $edit_col = $request->input('edit_col');
+        // ตรวจสอบว่า id มีค่าและไม่ใช่ค่าว่าง
+        if (!empty($id_col) && !empty($newIdValue) && !empty($edit_col)) {
+            // ทำการอัพเดตข้อมูลหรือการดำเนินการที่ต้องการ
 
-    return response()->json(['success' => true, 'message' => 'ID updated successfully']);
+            if($edit_col == "id_number"){
+                $affected = DB::table('documents')
+                    ->where('documnet_id', $id_col)
+                    ->update(['id_number' => $newIdValue]);
+                if ($affected > 0) {
+                    return response()->json(['success' => true, 'message' =>  $newIdValue]);
+                } else {
+                    return response()->json(['success' => false, 'message' => 'No rows were updated. The value might be the same as before.']);
+                }
+            }else  if($edit_col == "name"){
+                $affected = DB::table('documents')
+                    ->where('documnet_id', $id_col)
+                    ->update(['document_name' => $newIdValue]);
+                if ($affected > 0) {
+                    return response()->json(['success' => true, 'message' =>  $newIdValue]);
+                } else {
+                    return response()->json(['success' => false, 'message' => 'No rows were updated. The value might be the same as before.']);
+                }
+            }else  if($edit_col == "version"){
+                $affected = DB::table('documents')
+                    ->where('documnet_id', $id_col)
+                    ->update(['version' => $newIdValue]);
+                if ($affected > 0) {
+                    return response()->json(['success' => true, 'message' =>  $newIdValue]);
+                } else {
+                    return response()->json(['success' => false, 'message' => 'No rows were updated. The value might be the same as before.']);
+                }
+            }else  if($edit_col == "end_time"){
+                $affected = DB::table('documents')
+                    ->where('documnet_id', $id_col)
+                    ->update(['end_time' => $newIdValue]);
+                if ($affected > 0) {
+                    return response()->json(['success' => true, 'message' =>  $newIdValue]);
+                } else {
+                    return response()->json(['success' => false, 'message' => 'No rows were updated. The value might be the same as before.']);
+                }
+            }else  if($edit_col == "year"){
+                $affected = DB::table('documents')
+                    ->where('documnet_id', $id_col)
+                    ->update(['year' => $newIdValue]);
+                if ($affected > 0) {
+                    return response()->json(['success' => true, 'message' =>  $newIdValue]);
+                } else {
+                    return response()->json(['success' => false, 'message' => 'No rows were updated. The value might be the same as before.']);
+                }
+            }
+            
+
+        } else {
+            return response()->json(['success' => false, 'message' => 'Invalid ID or data value']);
+        }
+    }else{
+        return response()->json(['success' => false, 'message' => 'No ID provided']);
+    }
+    
 }
 
+
+public function get_data_year(Request $request)
+{
+    try {
+        $years = DB::table('years')->get();
+        return response()->json(['success' => true, 'data' => $years]);
+    } catch (Exception $e) {
+        return response()->json(['success' => false, 'message' => $e->getMessage()]);
+    }
+}
     public function shownextform(Request $request)
     {
        
