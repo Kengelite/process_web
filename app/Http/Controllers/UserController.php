@@ -70,10 +70,38 @@ class UserController extends Controller
         ->leftJoin('employees', 'start_employee', '=', 'emp_id')
         ->leftJoin('cotton', 'id_cotton', '=', 'cotton_id')
         ->leftJoin('years', 'id_year', '=', 'year_id')
-        ->where('id_type' ,'=' , '2')
+        ->where('id_type' ,'=' , '3')
         ->get();
+        foreach ($documents as $document) {
+            $document->encoded_id = base64_encode($document->documnet_id);
+        }
+        foreach ($documents as $document) {
+        if ($document->end_time) {
+            $endDate = Carbon::parse($document->end_time);
+            $daysRemaining = (int) Carbon::now()->diffInDays($endDate, false);
+            if ($daysRemaining <= 0) {
+                $document->days_remaining = "สิ้นสุด";
+            } else {
+                $document->days_remaining = $daysRemaining . " วัน";
+            }
+        } else {
+            $document->days_remaining = "ไม่ได้ระบุวัน"; // หรือค่าเริ่มต้นที่คุณต้องการ
+        }
+    }
+
+        $total_assets = DB::table('documents')->count();
+        // $total_assets_today = DB::table('documents')
+        // ->whereDate('created_at', Carbon::today())
+        // ->count();
         // return view('user.index');
-        return view('user.page_data_project', ['documents' => $documents]);
+        $total_all = DB::table('documents')
+        ->select('id_type', DB::raw('count(*) as total'))
+        ->groupBy('id_type')
+        ->get();
+        return view('user.page_data_project', ['documents' => $documents,
+        // 'total_assets_today' => $total_assets_today ,
+        'total_all'=> $total_all,
+        'total_assets' => $total_assets]);
     }
     public function showproduct(): View
     {
@@ -157,7 +185,7 @@ class UserController extends Controller
     }
 
 
-
+    // โชว์ข้อมูลที่นำไปสำหรับแก้ไข หรืออัพโหลดไฟล์
     public function selectshowdata_get($id)
     {
         $id = base64_decode($id);
@@ -169,6 +197,7 @@ class UserController extends Controller
         ->leftJoin('employees', 'start_employee', '=', 'emp_id')
         ->leftJoin('cotton', 'id_cotton', '=', 'cotton_id')
         ->leftJoin('years', 'id_year', '=', 'year_id')
+        ->leftJoin('academics', 'id_aca', '=', 'academic_id')
         ->where('documnet_id', '=', $id)
         ->first();
 
@@ -185,7 +214,7 @@ class UserController extends Controller
 
 
 
-// แก้ไขข้อมูล id_number
+// แก้ไขข้อมูล id_number ทั้งหมด
 public function edit_number_controller(Request $request, $id)
 {
     if ($id) {
@@ -236,9 +265,60 @@ public function edit_number_controller(Request $request, $id)
             }else  if($edit_col == "year"){
                 $affected = DB::table('documents')
                     ->where('documnet_id', $id_col)
-                    ->update(['year' => $newIdValue]);
+                    ->update(['id_year' => $newIdValue]);
                 if ($affected > 0) {
-                    return response()->json(['success' => true, 'message' =>  $newIdValue]);
+                        $val_update = DB::table('years')
+                        ->where('year_id', '=', $newIdValue)
+                        ->first(['year_name']);
+                    return response()->json(['success' => true, 'message' =>  "ค.ศ.".$val_update->year_name]);
+                } else {
+                    return response()->json(['success' => false, 'message' => 'No rows were updated. The value might be the same as before.']);
+                }
+            }else  if($edit_col == "cotton"){
+                $affected = DB::table('documents')
+                    ->where('documnet_id', $id_col)
+                    ->update(['id_cotton' => $newIdValue]);
+                if ($affected > 0) {
+                        $val_update = DB::table('cotton')
+                        ->where('cotton_id', '=', $newIdValue)
+                        ->first(['cotton_name']);
+                    return response()->json(['success' => true, 'message' => $val_update->cotton_name]);
+                } else {
+                    return response()->json(['success' => false, 'message' => 'No rows were updated. The value might be the same as before.']);
+                }
+            }else  if($edit_col == "types"){
+                $affected = DB::table('documents')
+                    ->where('documnet_id', $id_col)
+                    ->update(['id_type' => $newIdValue]);
+                if ($affected > 0) {
+                        $val_update = DB::table('type_alls')
+                        ->where('type_all_id', '=', $newIdValue)
+                        ->first(['type_all_name']);
+                    return response()->json(['success' => true, 'message' => $val_update->type_all_name]);
+                } else {
+                    return response()->json(['success' => false, 'message' => 'No rows were updated. The value might be the same as before.']);
+                }
+            }else  if($edit_col == "teachers"){
+                $affected = DB::table('documents')
+                    ->where('documnet_id', $id_col)
+                    ->update(['start_teacher' => $newIdValue]);
+                if ($affected > 0) {
+                        $val_update = DB::table('teachers')
+                        ->where('teacher_id', '=', $newIdValue)
+                        ->first(['teacher_name','teacher_lname']);
+                    return response()->json(['success' => true, 'message' => $val_update->teacher_name]);
+                } else {
+                    return response()->json(['success' => false, 'message' => 'No rows were updated. The value might be the same as before.']);
+                }
+            }else  if($edit_col == "employees"){
+                $affected = DB::table('documents')
+                    ->where('documnet_id', $id_col)
+                    ->update(['start_employee' => $newIdValue]);
+                if ($affected > 0) {
+                        $val_update = DB::table('employees')
+                        ->where('emp_id', '=', $newIdValue)
+                        ->first(['emp_name','emp_lname']);
+                    return response()->json(['success' => true, 'message' => $val_update->emp_name]);
                 } else {
                     return response()->json(['success' => false, 'message' => 'No rows were updated. The value might be the same as before.']);
                 }
@@ -264,6 +344,110 @@ public function get_data_year(Request $request)
         return response()->json(['success' => false, 'message' => $e->getMessage()]);
     }
 }
+public function get_data_cotton(Request $request)
+{
+    try {
+        $cottons = DB::table('cotton')->get();
+        return response()->json(['success' => true, 'data' => $cottons]);
+    } catch (Exception $e) {
+        return response()->json(['success' => false, 'message' => $e->getMessage()]);
+    }
+}
+
+public function add_data_new_DB(Request $request)
+{
+    try {
+        $newIdValue = $request->input('val_add');
+        $add_col = $request->input('type');
+        
+        if($add_col == "add_year"){
+            // ตรวจสอบว่ามีข้อมูลในตาราง years ที่ตรงกับ id หรือไม่
+            $affected = DB::table('years')
+                          ->where('year_name', $newIdValue)
+                          ->count();
+        
+            // ถ้าไม่มีข้อมูล ให้ทำการเพิ่มข้อมูลใหม่
+            if ($affected == 0) {
+                $aff_years = DB::table('years')->insert([
+                    ['year_name' =>  $newIdValue]
+                ]);
+                
+                if ($aff_years) {
+                    return response()->json(['success' => true, 'message' => "เพิ่มข้อมูลปี ค.ศ." . $newIdValue . " เรียบร้อยแล้ว"]);
+                } else {
+                    return response()->json(['success' => false, 'message' => 'ไม่สามารถเพิ่มข้อมูลได้ กรุณาลองใหม่อีกครั้ง']);
+                }
+            } else {
+                return response()->json(['success' => false, 'message' => 'ข้อมูลปี ค.ศ.' . $newIdValue . ' มีอยู่แล้วในระบบ']);
+            }
+        }else  if($add_col == "add_cotton"){
+            // ตรวจสอบว่ามีข้อมูลในตาราง years ที่ตรงกับ id หรือไม่
+            $affected = DB::table('cotton')
+                          ->where('cotton_name', $newIdValue)
+                          ->count();
+        
+            // ถ้าไม่มีข้อมูล ให้ทำการเพิ่มข้อมูลใหม่
+            if ($affected == 0) {
+                $aff_years = DB::table('cotton')->insert([
+                    ['cotton_name' =>  $newIdValue]
+                ]);
+                
+                if ($aff_years) {
+                    return response()->json(['success' => true, 'message' => "" . $newIdValue . " เรียบร้อยแล้ว"]);
+                } else {
+                    return response()->json(['success' => false, 'message' => 'ไม่สามารถเพิ่มข้อมูลได้ กรุณาลองใหม่อีกครั้ง']);
+                }
+            } else {
+                return response()->json(['success' => false, 'message' => '' . $newIdValue . ' มีอยู่แล้วในระบบ']);
+            }
+        }
+    } catch (Exception $e) {
+        return response()->json(['success' => false, 'message' => $e->getMessage()]);
+    }
+}
+
+
+
+
+public function get_data_type(Request $request)
+{
+    try {
+        $types = DB::table('type_alls')->get();
+        return response()->json(['success' => true, 'data' => $types]);
+    } catch (Exception $e) {
+        return response()->json(['success' => false, 'message' => $e->getMessage()]);
+    }
+}
+
+
+
+public function get_data_teachers(Request $request)
+{
+    try {
+        $data_teachers = DB::table('teachers')
+        ->leftJoin('academics', 'id_aca', '=', 'academic_id')
+        ->get();
+        return response()->json(['success' => true, 'data' => $data_teachers]);
+    } catch (Exception $e) {
+        return response()->json(['success' => false, 'message' => $e->getMessage()]);
+    }
+}
+
+
+
+
+public function get_data_employee(Request $request)
+{
+    try {
+        $data_employees = DB::table('employees')->get();
+        return response()->json(['success' => true, 'data' => $data_employees]);
+    } catch (Exception $e) {
+        return response()->json(['success' => false, 'message' => $e->getMessage()]);
+    }
+}
+
+
+
     public function shownextform(Request $request)
     {
        

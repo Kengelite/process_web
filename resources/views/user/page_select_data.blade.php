@@ -139,7 +139,7 @@
 
                                             <!-- เวลาเสร็จสิ้น -->
                                             <div class="mb-3 col-xl-6 mt-3">
-                                                <label for="end_time" class="form-label">เวลาเสร็จสิ้น</label>
+                                                <label for="end_time" class="form-label">สิ้นสุดวันที่</label>
                                                 <div class="input-group">
                                                     <input class="form-control" readonly type="datetime-local"
                                                         id="end_time"
@@ -164,11 +164,11 @@
 
                                             <!-- ฝ้าย -->
                                             <div class="mb-3 col-xl-6 mt-3">
-                                                <label for="cotton_name" class="form-label">ฝ่าย</label>
+                                                <label for="cotton_name" class="form-label">ฝ่ายกำกับดูแล</label>
                                                 <div class="input-group">
                                                     <input class="form-control" readonly type="text" id="cotton_name"
                                                         value="{{ $documents->cotton_name }}">
-                                                    <button class="input-group-text color-success" id="basic-addon6"
+                                                    <button class="input-group-text color-success" id="btn_edit_cotton"
                                                         style="background-color: #b3e5fc; color: black;">
                                                         <i class='bx bxs-edit'></i>
                                                 </div>
@@ -180,7 +180,7 @@
                                                 <div class="input-group">
                                                     <input class="form-control" readonly type="text" id="type_all_name"
                                                         value="{{ $documents->type_all_name }}">
-                                                    <button class="input-group-text color-success" id="basic-addon7"
+                                                    <button class="input-group-text color-success" id="btn_edit_type"
                                                         style="background-color: #b3e5fc; color: black;">
                                                         <i class='bx bxs-edit'></i>
                                                 </div>
@@ -189,11 +189,11 @@
                                             <!-- ชื่อครู -->
                                             <div class="mb-3 col-xl-6 mt-3">
                                                 <label for="teacher_name"
-                                                    class="form-label">ชื่ออาจารย์ผู้รับผิดชอบ</label>
+                                                    class="form-label">อาจารย์ที่รับผิดชอบ</label>
                                                 <div class="input-group">
                                                     <input class="form-control" readonly type="text" id="teacher_name"
-                                                        value="{{ $documents->teacher_name != '' ? $documents->teacher_name : '-' }}">
-                                                    <button class="input-group-text color-success" id="basic-addon8"
+                                                        value="{{ $documents->teacher_name != '' ? $documents->academic_stort_name . $documents->teacher_name. ' ' . $documents->teacher_lname : '-' }}">
+                                                    <button class="input-group-text color-success" id="btn_edit_teachers"
                                                         style="background-color: #b3e5fc; color: black;">
                                                         <i class='bx bxs-edit'></i>
                                                 </div>
@@ -202,11 +202,11 @@
                                             <!-- ชื่อพนักงาน -->
                                             <div class="mb-3 col-xl-6 mt-3">
                                                 <label for="emp_name"
-                                                    class="form-label">ชื่อเจ้าหน้าที่ผู้รับผิดชอบ</label>
+                                                    class="form-label">เจ้าหน้าที่ผู้รับผิดชอบ</label>
                                                 <div class="input-group">
                                                     <input class="form-control" readonly type="text" id="emp_name"
-                                                        value="{{ $documents->emp_name != '' ? $documents->emp_name : '-' }}">
-                                                    <button class="input-group-text" id="basic-addon9"
+                                                        value="{{ $documents->emp_name != '' ?  $documents->emp_name . ' '. $documents->emp_lname : '-' }}">
+                                                    <button class="input-group-text" id="btn_edit_employee"
                                                         style="background-color: #b3e5fc; color: black;">
                                                         <i class='bx bxs-edit'></i>
                                                     </button>

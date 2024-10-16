@@ -37,6 +37,7 @@ return new class extends Migration
         Schema::create('teachers', function (Blueprint $table) {
             $table->uuid('teacher_id')->primary();
             $table->string('teacher_name');
+            $table->string('teacher_lname');
             $table->string('picture_url');
             $table->integer('id_position', false, true)->length(10);
             $table->integer('id_sex', false, true)->length(10);
@@ -53,6 +54,7 @@ return new class extends Migration
         Schema::create('employees', function (Blueprint $table) {
             $table->uuid('emp_id')->primary();
             $table->string('emp_name');
+            $table->string('emp_lname');
             $table->string('picture_url');
             $table->integer('id_position', false, true)->length(10);
             $table->integer('id_sex', false, true)->length(10); 
@@ -70,6 +72,7 @@ return new class extends Migration
              $table->timestamp('updated_at')->default(DB::raw('CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP'));
             $table->softDeletes();
         });
+       
         Schema::create('cotton', function (Blueprint $table) {
             $table->increments('cotton_id')->primary();
             $table->string('cotton_name');
@@ -113,6 +116,7 @@ return new class extends Migration
      */
     public function down(): void
     {
+        Schema::dropIfExists('sexes');
         Schema::dropIfExists('documents');
         Schema::dropIfExists('employees');
     }

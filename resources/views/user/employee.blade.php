@@ -250,7 +250,74 @@
                         </div><!-- End Recent Sales -->
                     </div>
                 </div><!-- End Left side columns -->
+                <div class="col-lg-12">
+                    <div class="row">
+                        <!-- Recent Sales -->
+                        <div class="col-12">
+                            <div class="card recent-sales overflow-auto">
 
+                                <div class="filter" style="margin-right: 8%;">
+
+                                    <button class="btn btn-success ml-auto">เพิ่มข้อมูล</button>
+                                </div>
+
+                                <div class="card-body">
+                                    <h5 class="card-title d-flex justify-content-between align-items-center">
+                                        ข้อมูลเจ้าหน้าที่
+                                        <!-- <button class="btn btn-success ml-auto"
+                                            style="margin-right: 8%;">เพิ่มข้อมูล</button> -->
+                                    </h5>
+
+                                    <table id="data_employee" class="display pt-2 table table-borderless  datatable fs-6"
+                                        style="width:100%">
+                                        <thead class="pt-3">
+                                            <tr class="table-secondary">
+                                                <th scope="col">ลำดับ</th>
+                                                <th scope="col">เลขอ้างอิง</th>
+                                                <th scope="col">ชื่องาน</th>
+                                                <th scope="col">ประเภท</th>
+                                                <th scope="col">เจ้าหน้าที่</th>
+                                                <th scope="col">อาจารย์</th>
+                                                <th scope="col">หน่วยงาน</th>
+                                                <th scope="col">ปี</th>
+                                                <th scope="col"> </th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @foreach($documents as $document)
+                                            <tr>
+                                                <th scope="row">
+                                                    {{ $loop->iteration }}
+                                                    <!-- ใช้ $loop->iteration เพื่อแสดงลำดับ -->
+                                                </th>
+                                                <td>
+                                                    <div> {{$document->id_number}}</div>
+                                                </td>
+                                                <td>
+                                                    <div> {{$document->document_name}}</div>
+                                                </td>
+                                                <td> {{$document->type_all_name}}</td>
+                                                <td>{{ $document->emp_name ?? '-' }}</td>
+
+                                                <td>{{ $document->teacher_name ?? '-' }}</td>
+                                                <td>{{$document->cotton_name}}</td>
+                                                <td>{{$document->year_name}}</td>
+                                                <td>
+                                                    <buntton class="btn btn-primary btndata" id="{{$loop->iteration}}">
+                                                        ข้อมูล</buntton>
+                                                </td>
+                                            </tr>
+                                            @endforeach
+                                            <!-- เพิ่มข้อมูลในตารางตามที่ต้องการ -->
+                                        </tbody>
+                                    </table>
+
+                                </div>
+
+                            </div>
+                        </div><!-- End Recent Sales -->
+                    </div>
+                </div><!-- End Left side columns -->
             </div>
         </section>
 

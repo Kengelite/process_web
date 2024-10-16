@@ -56,6 +56,15 @@ Route::get('/pageout', function () {
 Route::get('/pageselectdata_get/{id}', [UserController::class, 'selectshowdata_get'])->name('pageselectdata_get');
 Route::post('/pageselectdata_get/{id}/edit_data', [UserController::class, 'edit_number_controller'])->name('postedit_id_number');
 Route::post('/pageselectdata_get/{id}/edit_data/getdata_year', [UserController::class, 'get_data_year'])->name('postget_data_year');
+Route::post('/pageselectdata_get/{id}/edit_data/getdata_cotton', [UserController::class, 'get_data_cotton'])->name('postget_data_cotton');
+Route::post('/pageselectdata_get/{id}/edit_data/getdata_type', [UserController::class, 'get_data_type'])->name('postget_data_type');
+Route::post('/pageselectdata_get/{id}/edit_data/getdata_teachers', [UserController::class, 'get_data_teachers'])->name('postget_data_teachers');
+Route::post('/pageselectdata_get/{id}/edit_data/getdata_employee', [UserController::class, 'get_data_employee'])->name('postget_data_employee');
+
+
+
+
+Route::post('/pageselectdata_get/{id}/edit_data/addnew_data', [UserController::class, 'add_data_new_DB'])->name('postget_addnew_data');
 
 
 Route::get('/pagedataforprocess', [UserController::class, 'showprocess'])->name('pageprocess');

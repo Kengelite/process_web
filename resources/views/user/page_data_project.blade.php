@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8">
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
-
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>CP - Assets</title>
     <meta content="" name="description">
     <meta content="" name="keywords">
@@ -18,9 +18,7 @@
     <script type="text/javascript" charset="utf8" src="//cdn.datatables.net/1.10.21/js/jquery.dataTables.min.js">
     </script>
     <!-- Favicons -->
-    <link href="/assets/img/favicon.png" rel="icon">
-    <link href="/assets/img/apple-touch-icon.png" rel="apple-touch-icon">
-
+    <link rel="icon" href="/assets/images/icon/cpkkuicon.ico" rel="icon" type="image/x-icon">
     <!-- Google Fonts -->
     <link href="https://fonts.gstatic.com" rel="preconnect">
     <link
@@ -38,6 +36,7 @@
 
     <!-- Template Main CSS File -->
     <link rel="stylesheet" href="{{ asset('assets/css/style.css') }}">
+
     <!-- <link href="/assets/css/style.css" rel="stylesheet"> -->
 
     <style>
@@ -75,7 +74,6 @@
           <li class="breadcrumb-item active">Dashboard</li>
         </ol> -->
                 <!-- <span> ทรัพย์สินองค์กร ( CP Assets ) </span> -->
-                <span> Process ID : 123456789</span>
             </nav>
         </div><!-- End Page Title -->
 
@@ -87,7 +85,7 @@
                     <div class="card info-card sales-card">
 
                         <div class="card-body">
-                            <h5 class="card-title">จำนวน
+                            <h5 class="card-title">ทั้งหมด
                                 <!-- <span>| World</span> -->
                             </h5>
 
@@ -97,10 +95,10 @@
                                     <!-- <i class="bi bi-trophy" style="color:tomato;"></i> -->
                                 </div>
                                 <div class="ps-3">
-                                    <h6>753</h6>
-                                    <span class="text-success small pt-1 fw-bold"> <i
+                                    <h6>{{$total_assets}}</h6>
+                                    <!-- <span class="text-success small pt-1 fw-bold"> <i
                                             class="bi bi-arrow-up-circle-fill"></i>
-                                        1</span> <span class="text-muted small pt-2 ps-1">increase</span>
+                                        1</span> <span class="text-muted small pt-2 ps-1">increase</span> -->
 
                                 </div>
                             </div>
@@ -120,13 +118,18 @@
 
                             <div class="d-flex align-items-center">
                                 <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
-                                    <i class="bi bi-globe-central-south-asia"></i>
+                                    <i class="ri-file-text-line"></i>
                                 </div>
                                 <div class="ps-3">
-                                    <h6>304</h6>
-                                    <span class="text-success small pt-1 fw-bold"> <i
+                                    <h6>
+                                        @php
+                                        $typeOne = $total_all->firstWhere('id_type', 1);
+                                        @endphp
+                                        {{ $typeOne ? $typeOne->total : 0 }}
+                                    </h6>
+                                    <!-- <span class="text-success small pt-1 fw-bold"> <i
                                             class="bi bi-arrow-up-circle-fill"></i>
-                                        2</span> <span class="text-muted small pt-2 ps-1">increase</span>
+                                        2</span> <span class="text-muted small pt-2 ps-1">increase</span> -->
 
                                 </div>
                             </div>
@@ -148,13 +151,18 @@
 
                             <div class="d-flex align-items-center">
                                 <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
-                                    <i class="bi bi-trophy"></i>
+                                    <i class="ri-file-list-2-line"></i>
                                 </div>
                                 <div class="ps-3">
-                                    <h6>4</h6>
-                                    <span class="text-danger small pt-1 fw-bold"> <i
+                                    <h6>
+                                        @php
+                                        $typeOne = $total_all->firstWhere('id_type',2);
+                                        @endphp
+                                        {{ $typeOne ? $typeOne->total : 0 }}
+                                    </h6>
+                                    <!-- <span class="text-danger small pt-1 fw-bold"> <i
                                             class="bi bi-arrow-down-circle-fill"></i>
-                                        1</span> <span class="text-muted small pt-2 ps-1">decrease</span>
+                                        1</span> <span class="text-muted small pt-2 ps-1">decrease</span> -->
 
                                 </div>
                             </div>
@@ -177,13 +185,18 @@
 
                             <div class="d-flex align-items-center">
                                 <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
-                                    <i class="bi bi-trophy"></i>
+                                    <i class="ri-file-list-3-line"></i>
                                 </div>
                                 <div class="ps-3">
-                                    <h6>4</h6>
-                                    <span class="text-danger small pt-1 fw-bold"> <i
+                                    <h6> @php
+                                        $typeOne = $total_all->firstWhere('id_type',3);
+                                        @endphp
+                                        {{ $typeOne ? $typeOne->total : 0 }}
+
+                                    </h6>
+                                    <!-- <span class="text-danger small pt-1 fw-bold"> <i
                                             class="bi bi-arrow-down-circle-fill"></i>
-                                        1</span> <span class="text-muted small pt-2 ps-1">decrease</span>
+                                        1</span> <span class="text-muted small pt-2 ps-1">decrease</span> -->
 
                                 </div>
                             </div>
@@ -206,13 +219,13 @@
                                 </div>
 
                                 <div class="card-body">
-                                    <h5 class="card-title d-flex justify-content-between align-items-center">
-                                        รายการโปรเจคทั้งหมด
+                                    <h5 id="head" class="card-title d-flex justify-content-between align-items-center">
+                                        รายการทรัพย์สินทั้งหมด
                                         <!-- <button class="btn btn-success ml-auto"
                                             style="margin-right: 8%;">เพิ่มข้อมูล</button> -->
                                     </h5>
 
-                                    <table id="project" class="display pt-2 table table-borderless  datatable fs-6"
+                                    <table id="example" class="display pt-2 table table-borderless  datatable fs-6"
                                         style="width:100%">
                                         <thead class="pt-3">
                                             <tr class="table-secondary">
@@ -223,6 +236,7 @@
                                                 <th scope="col">เจ้าหน้าที่</th>
                                                 <th scope="col">อาจารย์</th>
                                                 <th scope="col">หน่วยงาน</th>
+                                                <th scope="col">ระยะเวลา</th>
                                                 <th scope="col">ปี</th>
                                                 <th scope="col"> </th>
                                             </tr>
@@ -245,10 +259,17 @@
 
                                                 <td>{{ $document->teacher_name ?? '-' }}</td>
                                                 <td>{{$document->cotton_name}}</td>
+                                                <td style="text-align:center">{{$document->days_remaining}} </td>
                                                 <td>{{$document->year_name}}</td>
                                                 <td>
-                                                    <buntton class="btn btn-primary btndata" id="{{$loop->iteration}}">
-                                                        ข้อมูล</buntton>
+                                                    <!-- <button class="btn btn-primary btn_id_show"
+                                                        data-id="{{$document->encoded_id }}">
+                                                        ข้อมูล
+                                                    </button> -->
+                                                    <a class="btn btn-primary btn_id_show" data-id="{{ $document->encoded_id }}"
+                                                        href="{{ route('pageselectdata_get', ['id' => $document->encoded_id]) }}">
+                                                        ข้อมูล
+                                                    </a>
                                                 </td>
                                             </tr>
                                             @endforeach
@@ -267,10 +288,46 @@
         </section>
 
     </main><!-- End #main -->
-    <script type="text/javascript" src="{{ asset('assets/js/product.js') }}"></script>
+
     <!-- ======= Footer ======= -->
     @include('../footer')
 
+    <script>
+    $(document).ready(function() {
+        $('.btn_id_show').click(function(event) {
+            var encodedId = $(this).data('id');
+            localStorage.setItem('encodedId', encodedId);
+        });
+        // $('.btn_id_show').click(function(event) {
+        //     // event.preventDefault(); 
+
+        //     var documentId = $(this).data('id'); // ดึง id จาก data-id
+        //     console.log(documentId)
+
+        //     $.ajax({
+        //         type: 'post',
+        //         url: "{{route('pageselectdata')}}", // URL ที่ต้องการส่งข้อมูลไป
+        //         data: {
+        //             id: documentId
+        //         },
+        //         // dataType: "json",
+        //         headers: {
+        //             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        //         },
+        //         success: function(response) {
+        //             // Redirect handled by the server
+        //             window.location.href = response.redirect_url;
+        //         },
+        //         error: function(xhr, status, error) {
+        //             console.log(error);
+        //             alert("เกิดข้อผิดพลาดกรุณาลองใหม่อีกครั้ง");
+        //         },
+        //     });
+        // });
+
+    });
+    </script>
+    <script type="text/javascript" src="{{ asset('assets/js/datatable.js') }}"></script>
     <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i
             class="bi bi-arrow-up-short"></i></a>
 
