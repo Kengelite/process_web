@@ -46,6 +46,7 @@ Route::get('/pagelogin', function () {
 
 Route::get('/pageout', function () {
     session()->flush();
+    session()->regenerateToken();
     return view('login') ;
 })->name('pageout');
 

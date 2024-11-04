@@ -8,7 +8,7 @@
     <title>CP - Assets</title>
     <meta content="" name="description">
     <meta content="" name="keywords">
-
+    <meta name="csrf-token" id="csrf-token" content="{{ csrf_token() }}">
     <!-- Favicons -->
     <link href="/assets/images/icon/cpkkuicon.ico" rel="icon">
     <link href="assets/img/apple-touch-icon.png" rel="apple-touch-icon">
@@ -70,7 +70,7 @@
                                     </div>
 
                                     <form id="loginForm" class="row g-3 needs-validation" novalidate>
-                                        @csrf
+                                     
                                         <div class="col-12">
                                             <label for="yourUsername" class="form-label">Username</label>
                                             <div class="input-group has-validation">
@@ -152,7 +152,7 @@
                         Swal.fire({
                             icon: 'error',
                             title: 'ผิดพลาด',
-                            text: response.message
+                            text: "กรุณาลองใหม่อีกครั้ง"
                         });
                     }
                 },
