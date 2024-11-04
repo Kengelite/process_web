@@ -133,6 +133,42 @@ function send_new_data_ajax(type, value_type) {
 }
 
 $(document).ready(function () {
+    const dataTableOptions = {
+        paging: true,
+        searching: true,
+        ordering: true,
+        info: true,
+        language: {
+            lengthMenu: "แสดง _MENU_ รายการต่อหน้า",
+            zeroRecords: "ไม่พบข้อมูล",
+            info: "แสดงหน้า _PAGE_ จาก _PAGES_",
+            infoEmpty: "ไม่มีข้อมูล",
+            infoFiltered: "(ค้นหาจากทั้งหมด _MAX_ รายการ)",
+            paginate: {
+                first: "หน้าแรก",
+                last: "หน้าสุดท้าย",
+                next: "ถัดไป",
+                previous: "ก่อนหน้า",
+            },
+            search: "ค้นหา : ",
+        },
+        initComplete: function () {
+            // เพิ่มคลาส form-control ให้กับช่องค้นหา (Search Input)
+            var searchInput = $(this)
+                .closest(".dataTables_wrapper")
+                .find('input[type="search"]');
+            searchInput.addClass("search-form");
+
+            var selectElements = $(this)
+                .closest(".dataTables_wrapper")
+                .find("select");
+            selectElements.addClass("search-form-select");
+            // ใช้ Flexbox จัดการให้แสดงผลในบรรทัดเดียว
+        },
+    };
+
+    // ใช้ตัวเลือกเดียวกันกับทั้งสองตาราง
+    $("#example").DataTable(dataTableOptions);
     let edit_col;
     $("#btn_edit_id_number").on("click", (e) => {
         $("#modal_edit_id_number").modal("show");
@@ -648,10 +684,19 @@ $(document).ready(function () {
                     vals.forEach((val) => {
                         // สร้าง option ใหม่และตรวจสอบว่า val_id ตรงกับ 2 หรือไม่
                         var option = new Option(
-                            val.academic_stort_name  +val.teacher_name + " " +  val.teacher_lname,
+                            val.academic_stort_name +
+                                val.teacher_name +
+                                " " +
+                                val.teacher_lname,
                             val.teacher_id
                         );
-                        if ((  val.academic_stort_name  +val.teacher_name + " " +  val.teacher_lname)=== $("#teacher_name").val()) {
+                        if (
+                            val.academic_stort_name +
+                                val.teacher_name +
+                                " " +
+                                val.teacher_lname ===
+                            $("#teacher_name").val()
+                        ) {
                             option.selected = true; // กำหนด selected ให้กับ option
                         }
                         $("#teachersSelect").append(option); // เพิ่ม option ลงใน select
@@ -720,13 +765,6 @@ $(document).ready(function () {
 
     // โชว์หน้าเพิ่มช้อมูลอาจารย์
 
-
-
-
-
-
-
-
     //เจ้าหน้าที่ผู้รับผิดชอบ
     $("#btn_edit_employee").on("click", (e) => {
         // postgetNumberUrl = postEditIdNumberUrl.replace('edit_data', 'getdata_year');
@@ -741,21 +779,23 @@ $(document).ready(function () {
                 "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content"),
             },
             success: function (response) {
-                // console.log(response);
+                console.log(response);
                 if (response.success) {
                     const vals = response.data; // ข้อมูลปีจาก server
                     const empSelect = $("#EmployeeSelect"); // เลือก select element
                     empSelect.empty(); // เคลียร์ค่าเดิม
-                 
+
                     // เพิ่ม option ลงใน select element
                     vals.forEach((val) => {
-
                         // สร้าง option ใหม่และตรวจสอบว่า val_id ตรงกับ 2 หรือไม่
                         var option = new Option(
                             val.emp_name + " " + val.emp_lname,
                             val.emp_id
                         );
-                        if ((val.emp_name+ " " + val.emp_lname) === $("#emp_name").val()) {
+                        if (
+                            val.emp_name + " " + val.emp_lname ===
+                            $("#emp_name").val()
+                        ) {
                             option.selected = true; // กำหนด selected ให้กับ option
                         }
                         $("#EmployeeSelect").append(option); // เพิ่ม option ลงใน select
@@ -818,6 +858,232 @@ $(document).ready(function () {
                 //     Swal.fire("Changes are not saved", "", "info");
                 // }
             });
+        }
+    });
+
+    // อัพโหลดไฟล์
+
+    $(".btn-add-file").on("click", () => {
+        $("#modal-add-file").modal("show");
+    });
+    $("#uploadForm").on("click", function (e) {
+        e.preventDefault();
+        let name = $("#file-name").val();
+
+        // ดึงไฟล์จาก input โดยตรง
+        var formData = new FormData();
+        var fileInput = $("#file")[0].files[0];
+
+        if (!fileInput || name == "") {
+            Swal.fire({
+                icon: "error",
+                title: "เกิดข้อผิดพลาด",
+                html: "กรุณาเลือกไฟล์ก่อนทำการอัปโหลด <br> หรือกรอกข้อมูลให้ครบถ้วน",
+                confirmButtonText: "ตกลง",
+            });
+            return;
+        }
+        formData.append("name-input", name);
+        formData.append("file", fileInput);
+        formData.append("id_document", "YOUR_DOCUMENT_UUID_HERE"); // ส่ง UUID ของเอกสารที่เกี่ยวข้อง
+
+        $.ajax({
+            url: postEditIdNumberUrl + "/upload",
+            type: "POST",
+            data: formData,
+            contentType: false,
+            processData: false,
+            headers: {
+                "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content"),
+            },
+            success: function (response) {
+                console.log(response);
+                if (response.success) {
+                    Swal.fire({
+                        icon: "success",
+                        title: "สำเร็จ",
+                        text: "อัปโหลดไฟล์เรียบร้อย",
+                        confirmButtonText: "ตกลง",
+                    }).then(() => {
+                        location.reload();
+                    });
+                    $("#modal-add-file").modal("hide");
+                } else {
+                    Swal.fire({
+                        icon: "error",
+                        title: "เกิดข้อผิดพลาด",
+                        text: "ข้อมูลไม่ถูกต้องหรืออาจเป็นข้อมูลเดิม",
+                        confirmButtonText: "ตกลง",
+                    });
+                }
+            },
+            error: function (response) {
+                Swal.fire({
+                    icon: "error",
+                    title: "เกิดข้อผิดพลา2222",
+                    text: "ข้อมูลไม่ถูกต้องหรืออาจเป็นข้อมูลเดิม",
+                    confirmButtonText: "ตกลง",
+                });
+            },
+        });
+    });
+
+    $("#btn_edit_description").on("click", (e) => {
+        $("#modal_edit_description").modal("show"); // เปิดโมดอล
+        $("#input_description_edit").html($("#input_description").val()); // ดึงค่าใน textarea และใส่ใน input ของโมดอล
+    });
+    $("#btn_submit_edit_description").on("click", (e) => {
+        e.preventDefault();
+        let description_val_new = $("#input_description_edit").val();
+        let description_val_old = $("#input_description").val();
+
+        if (
+            description_val_new == description_val_old ||
+            description_val_new == ""
+        ) {
+            Swal.fire({
+                icon: "error",
+                title: "เกิดข้อผิดพลาด",
+                text: "ข้อมูลไม่ถูกต้องหรืออาจเป็นข้อมูลเดิม",
+                confirmButtonText: "ตกลง",
+                // text: "Something went wrong!",
+                // footer: '< a href="#">Why do I have this issue?</>',
+            });
+        } else {
+            Swal.fire({
+                icon: "question",
+                title: `คุณต้องการปรับแก้ข้อมูลเวอร์ชั่น`,
+                text: `เดิม ${description_val_old} เป็น ${description_val_new}`,
+                showCancelButton: true, // Use boolean to show the cancel button
+                confirmButtonText: "ยืนยันการบันทึก",
+                cancelButtonText: "ยกเลิก", // Text for the cancel button
+                customClass: {
+                    confirmButton: "btn btn-success", // Use Bootstrap classes for the confirm button
+                    cancelButton: "btn btn-danger", // Use Bootstrap classes for the cancel button
+                },
+            }).then((result) => {
+                /* Read more about isConfirmed, isDenied below */
+                if (result.isConfirmed) {
+                    send_data_ajax("description", description_val_new);
+                }
+                // else if (result.isDenied) {
+                //     Swal.fire("Changes are not saved", "", "info");
+                // }
+            });
+        }
+    });
+
+    $(document).on("change", ".toggle-status", function (e) {
+        // $(document).on('change', '.toggle-status', function() {
+        var toggleSwitch = $(this);
+        var fileId = toggleSwitch.data("id");
+        var newStatus = toggleSwitch.is(":checked") ? 1 : 0;
+        console.log(newStatus);
+        if (newStatus === 1) {
+            // ถ้าสถานะเปลี่ยนเป็น "เปิด" แสดงการแจ้งเตือน SweetAlert เพื่อยืนยัน
+            Swal.fire({
+                title: "ต้องการอนุญาตให้ดาวน์โหลดหรือไม่?",
+                icon: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#3085d6",
+                cancelButtonColor: "#d33",
+                confirmButtonText: "ใช่, อนุญาต",
+                cancelButtonText: "ยกเลิก",
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    // ถ้าผู้ใช้ยืนยัน ให้ส่งข้อมูลเพื่อเปลี่ยนสถานะ
+                    changeStatus(fileId, 1);
+                } else {
+                    // ถ้าผู้ใช้ยกเลิก ให้เปลี่ยนสวิตช์กลับไปที่สถานะเดิม
+                    toggleSwitch.prop("checked", false);
+                }
+            });
+        } else {
+            // ถ้าสถานะเปลี่ยนเป็น "ปิด" ให้เปลี่ยนสถานะโดยไม่ต้องแจ้งเตือน
+            Swal.fire({
+                title: "ต้องการยกเลิกดาวน์โหลดหรือไม่?",
+                icon: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#3085d6",
+                cancelButtonColor: "#d33",
+                confirmButtonText: "ใช่, อนุญาต",
+                cancelButtonText: "ยกเลิก",
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    // ถ้าผู้ใช้ยืนยัน ให้ส่งข้อมูลเพื่อเปลี่ยนสถานะ
+                    changeStatus(fileId, 0);
+                } else {
+                    // ถ้าผู้ใช้ยกเลิก ให้เปลี่ยนสวิตช์กลับไปที่สถานะเดิม
+                    toggleSwitch.prop("checked", true);
+                }
+            });
+        }
+    });
+
+    // ฟังก์ชันสำหรับส่งข้อมูลไปยังเซิร์ฟเวอร์
+    function changeStatus(fileId, newStatus) {
+        $.ajax({
+            type: "POST",
+            url: postEditIdNumberUrl + "/change_status",
+            data: {
+                status: newStatus,
+                fileId: fileId,
+            },
+            dataType: "json",
+            headers: {
+                "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content"),
+            },
+            success: function (response) {
+                console.log(response);
+                if (response.success) {
+                    Swal.fire(
+                        "สำเร็จ!",
+                        "สถานะถูกเปลี่ยนเรียบร้อยแล้ว",
+                        "success"
+                    ).then(() => {
+                        location.reload();
+                    });
+                } else {
+                    Swal.fire(
+                        "เกิดข้อผิดพลาด!",
+                        "ไม่สามารถเปลี่ยนสถานะได้ กรุณาลองใหม่อีกครั้ง",
+                        "error"
+                    );
+                }
+            },
+            error: function () {
+                Swal.fire(
+                    "เกิดข้อผิดพลาด!",
+                    "ไม่สามารถเปลี่ยนสถานะได้ กรุณาลองใหม่อีกครั้ง",
+                    "error"
+                );
+            },
+        });
+    }
+    $(document).on("click", ".download-btn", function (e) {
+        e.preventDefault(); // ป้องกันการทำงานเริ่มต้นของลิงก์
+
+        var fileUrl = $(this).data("file-url"); // URL ของไฟล์
+        var fileName = $(this).data("file-name"); // ชื่อไฟล์ที่ต้องการตั้ง
+        console.log(fileUrl);
+        // ตรวจสอบว่า fileUrl ถูกต้องหรือไม่
+        if (fileUrl) {
+            // สร้างลิงก์แบบไดนามิกเพื่อดาวน์โหลดไฟล์
+            var a = document.createElement("a");
+            a.href = fileUrl;
+            a.setAttribute("download", fileName); // ตั้งชื่อไฟล์ที่ต้องการดาวน์โหลด
+
+            // ตรวจสอบว่าเบราว์เซอร์รองรับการดาวน์โหลดโดยใช้ download attribute หรือไม่
+            if (a.download !== undefined) {
+                document.body.appendChild(a); // เพิ่มลิงก์ชั่วคราวไปยัง DOM
+                a.click(); // คลิกที่ลิงก์เพื่อดาวน์โหลดไฟล์
+                document.body.removeChild(a); // ลบลิงก์ชั่วคราวออกจาก DOM
+            } else {
+                // หากเบราว์เซอร์ไม่รองรับ ใช้วิธีเปิดหน้าต่างใหม่แทน
+                window.open(fileUrl, "_blank");
+            }
+        } else {
+            alert("ไม่พบไฟล์สำหรับดาวน์โหลด");
         }
     });
 });

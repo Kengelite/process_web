@@ -58,10 +58,12 @@ return new class extends Migration
             $table->string('picture_url');
             $table->integer('id_position', false, true)->length(10);
             $table->integer('id_sex', false, true)->length(10); 
+            $table->integer('id_aca', false, true)->length(10);
             $table->timestamp('created_at')->default(DB::raw('CURRENT_TIMESTAMP'));
              $table->timestamp('updated_at')->default(DB::raw('CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP'));
             $table->softDeletes();
 
+            $table->foreign('id_aca')->references('academic_id')->on('academics')->onDelete('CASCADE');
             $table->foreign('id_position')->references('position_id')->on('positions')->onDelete('CASCADE');
             $table->foreign('id_sex')->references('sex_id')->on('sexes')->onDelete('CASCADE');
         });

@@ -215,7 +215,7 @@
 
                                 <div class="filter" style="margin-right: 3%;">
 
-                                    <button class="btn btn-success ml-auto">เพิ่มข้อมูล</button>
+                                    <a class="btn btn-success ml-auto" href="{{route('documents.create')}}">เพิ่มข้อมูล</a>
                                 </div>
 
                                 <div class="card-body">

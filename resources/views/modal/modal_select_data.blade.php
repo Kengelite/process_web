@@ -94,7 +94,7 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header d-flex justify-content-between align-items-center">
-                <h1 class="modal-title fs-5" id="exampleModalLabel">ปี (ค.ศ.)</h1>
+                <h1 class="modal-title fs-5" id="exampleModalLabel">ปีงบประมาณ (ค.ศ.)</h1>
                 <div class="d-flex align-items-center">
                     <button class="btn btn-primary me-2" id="addYear">เพิ่มข้อมูลปี</button>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
@@ -252,6 +252,57 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-success" id="btn_submit_edit_employee">ยืนยัน</button>
+                <button type="button" class="btn btn-danger" data-bs-dismiss="modal">ยกเลิก</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- Modal upload file -->
+<div class="modal fade" id="modal-add-file" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="exampleModalLabel">อัพโหลดไฟล์</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="input-group">
+                    <div class="input-group mb-3">
+                        <span class="input-group-text" id="basic-addon1">ชื่อไฟล์</span>
+                        <input type="text" class="form-control" name="file-name" id="file-name"  placeholder="ชื่อไฟล์" aria-label="Username"
+                            aria-describedby="basic-addon1">
+                    </div>
+                    <input type="file" class="form-control" name="file" id="file">
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-success" id="uploadForm">ยืนยัน</button>
+                <button type="button" class="btn btn-danger" data-bs-dismiss="modal">ยกเลิก</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="modal fade" id="modal_edit_description" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="exampleModalLabel">รายละเอียด</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="input-group">
+
+                    <textarea class="form-control" id="input_description_edit" name="description"
+                                                        rows="4"
+                                                        ></textarea>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-success" id="btn_submit_edit_description">ยืนยัน</button>
                 <button type="button" class="btn btn-danger" data-bs-dismiss="modal">ยกเลิก</button>
             </div>
         </div>

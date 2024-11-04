@@ -37,7 +37,7 @@
     <link href="/assets/vendor/simple-datatables/style.css" rel="stylesheet">
 
     <!-- Template Main CSS File -->
-    <link href="/assets/css/style.css" rel="stylesheet">
+    <link rel="stylesheet" href="{{ asset('assets/css/style.css') }}">
 
     <!-- =======================================================
   * Template Name: NiceAdmin
@@ -64,7 +64,7 @@
           <li class="breadcrumb-item"><a href="index.html">Home</a></li>
           <li class="breadcrumb-item active">Dashboard</li>
         </ol> -->
-                <span> Process ID : 123456789</span>
+                <!-- <span> Process ID : 123456789</span> -->
             </nav>
         </div><!-- End Page Title -->
 
@@ -82,14 +82,14 @@
 
                             <div class="d-flex align-items-center">
                                 <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
-                                    <i class="bi bi-globe2"></i>
+                                <i class="ri-team-line"></i>
                                     <!-- <i class="bi bi-trophy" style="color:tomato;"></i> -->
                                 </div>
                                 <div class="ps-3">
-                                    <h6>753</h6>
-                                    <span class="text-success small pt-1 fw-bold"> <i
+                                    <h6>       {{ $total_assets ? $total_assets : 0 }}</h6>
+                                    <!-- <span class="text-success small pt-1 fw-bold"> <i
                                             class="bi bi-arrow-up-circle-fill"></i>
-                                        1</span> <span class="text-muted small pt-2 ps-1">increase</span>
+                                        1</span> <span class="text-muted small pt-2 ps-1">increase</span> -->
 
                                 </div>
                             </div>
@@ -103,19 +103,19 @@
                     <div class="card info-card sales-card">
 
                         <div class="card-body">
-                            <h5 class="card-title">อาจารย์รับผิดชอบ
+                            <h5 class="card-title">กระบวนการ
                                 <!-- <span>| Asian</span> -->
                             </h5>
 
                             <div class="d-flex align-items-center">
                                 <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
-                                    <i class="bi bi-globe-central-south-asia"></i>
+                                <i class="ri-file-text-line"></i>
                                 </div>
                                 <div class="ps-3">
-                                    <h6>304</h6>
-                                    <span class="text-success small pt-1 fw-bold"> <i
+                                    <h6>{{ $total_assets_emp_process ? $total_assets_emp_process : 0 }}</h6>
+                                    <!-- <span class="text-success small pt-1 fw-bold"> <i
                                             class="bi bi-arrow-up-circle-fill"></i>
-                                        2</span> <span class="text-muted small pt-2 ps-1">increase</span>
+                                        2</span> <span class="text-muted small pt-2 ps-1">increase</span> -->
 
                                 </div>
                             </div>
@@ -131,19 +131,19 @@
 
 
                         <div class="card-body">
-                            <h5 class="card-title"> เจ้าหน้าที่รับผิดชอบ
+                            <h5 class="card-title"> โปรเจค
                                 <!-- <span>| Thailand</span> -->
                             </h5>
 
                             <div class="d-flex align-items-center">
                                 <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
-                                    <i class="bi bi-trophy"></i>
+                                <i class="ri-file-list-2-line"></i>
                                 </div>
                                 <div class="ps-3">
-                                    <h6>4</h6>
-                                    <span class="text-danger small pt-1 fw-bold"> <i
+                                    <h6>{{ $total_assets_emp_project ? $total_assets_emp_project : 0 }}</h6>
+                                    <!-- <span class="text-danger small pt-1 fw-bold"> <i
                                             class="bi bi-arrow-down-circle-fill"></i>
-                                        1</span> <span class="text-muted small pt-2 ps-1">decrease</span>
+                                        1</span> <span class="text-muted small pt-2 ps-1">decrease</span> -->
 
                                 </div>
                             </div>
@@ -160,19 +160,19 @@
 
 
                         <div class="card-body">
-                            <h5 class="card-title"> ฝ่ายที่รับผิดชอบ
+                            <h5 class="card-title"> ผลิตภัณฑ์
                                 <!-- <span>| Thailand</span> -->
                             </h5>
 
                             <div class="d-flex align-items-center">
                                 <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
-                                    <i class="bi bi-trophy"></i>
+                                <i class="ri-file-list-3-line"></i>
                                 </div>
                                 <div class="ps-3">
-                                    <h6>4</h6>
-                                    <span class="text-danger small pt-1 fw-bold"> <i
+                                    <h6>{{ $total_assets_emp_product ? $total_assets_emp_product : 0 }}</h6>
+                                    <!-- <span class="text-danger small pt-1 fw-bold"> <i
                                             class="bi bi-arrow-down-circle-fill"></i>
-                                        1</span> <span class="text-muted small pt-2 ps-1">decrease</span>
+                                        1</span> <span class="text-muted small pt-2 ps-1">decrease</span> -->
 
                                 </div>
                             </div>
@@ -189,9 +189,9 @@
                         <div class="col-12">
                             <div class="card recent-sales overflow-auto">
 
-                                <div class="filter" style="margin-right: 8%;">
+                                <div class="filter" style="margin-right: 3%;">
 
-                                    <button class="btn btn-success ml-auto">เพิ่มข้อมูล</button>
+                                <a class="btn btn-success ml-auto" href="{{route('documents.create')}}">เพิ่มข้อมูล</a>
                                 </div>
 
                                 <div class="card-body">
@@ -200,7 +200,7 @@
                                         <!-- <button class="btn btn-success ml-auto"
                                             style="margin-right: 8%;">เพิ่มข้อมูล</button> -->
                                     </h5>
-                                    <table id="product" class="display pt-2 table table-borderless  datatable fs-6"
+                                    <table id="example" class="display pt-2 table table-borderless  datatable fs-6"
                                         style="width:100%">
                                         <thead class="pt-3">
                                             <tr class="table-secondary">
@@ -211,6 +211,7 @@
                                                 <th scope="col">เจ้าหน้าที่</th>
                                                 <th scope="col">อาจารย์</th>
                                                 <th scope="col">หน่วยงาน</th>
+                                                <th scope="col">ระยะเวลา</th>
                                                 <th scope="col">ปี</th>
                                                 <th scope="col"> </th>
                                             </tr>
@@ -233,10 +234,14 @@
 
                                                 <td>{{ $document->teacher_name ?? '-' }}</td>
                                                 <td>{{$document->cotton_name}}</td>
+                                                <td style="text-align:center">{{$document->days_remaining}} </td>
                                                 <td>{{$document->year_name}}</td>
                                                 <td>
-                                                    <buntton class="btn btn-primary btndata" id="{{$loop->iteration}}">
-                                                        ข้อมูล</buntton>
+                                             
+                                                    <a class="btn btn-primary btn_id_show" data-id="{{ $document->encoded_id }}"
+                                                        href="{{ route('pageselectdata_get', ['id' => $document->encoded_id]) }}">
+                                                        ข้อมูล
+                                                    </a>
                                                 </td>
                                             </tr>
                                             @endforeach
@@ -256,10 +261,12 @@
                         <div class="col-12">
                             <div class="card recent-sales overflow-auto">
 
-                                <div class="filter" style="margin-right: 8%;">
 
-                                    <button class="btn btn-success ml-auto">เพิ่มข้อมูล</button>
+                                <div class="filter" style="margin-right: 3%;">
+                                    <a class="btn btn-success"
+                                        href="{{ route('employees-add') }}">เพิ่มข้อมูลเจ้าหน้าที่</a>
                                 </div>
+
 
                                 <div class="card-body">
                                     <h5 class="card-title d-flex justify-content-between align-items-center">
@@ -268,43 +275,35 @@
                                             style="margin-right: 8%;">เพิ่มข้อมูล</button> -->
                                     </h5>
 
-                                    <table id="data_employee" class="display pt-2 table table-borderless  datatable fs-6"
-                                        style="width:100%">
+                                    <table id="data_employee"
+                                        class="display pt-2 table table-borderless  datatable fs-6" style="width:100%">
                                         <thead class="pt-3">
                                             <tr class="table-secondary">
                                                 <th scope="col">ลำดับ</th>
-                                                <th scope="col">เลขอ้างอิง</th>
-                                                <th scope="col">ชื่องาน</th>
-                                                <th scope="col">ประเภท</th>
-                                                <th scope="col">เจ้าหน้าที่</th>
-                                                <th scope="col">อาจารย์</th>
-                                                <th scope="col">หน่วยงาน</th>
-                                                <th scope="col">ปี</th>
+                                                <th scope="col">ชื่อ</th>
+                                                <th scope="col">นามสกุล</th>
+                                                <th scope="col">ตำแหน่ง</th>
                                                 <th scope="col"> </th>
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            @foreach($documents as $document)
+                                            @foreach($data_employees as $employee)
                                             <tr>
                                                 <th scope="row">
                                                     {{ $loop->iteration }}
                                                     <!-- ใช้ $loop->iteration เพื่อแสดงลำดับ -->
                                                 </th>
                                                 <td>
-                                                    <div> {{$document->id_number}}</div>
+                                                    <div> {{$employee->emp_name}}</div>
                                                 </td>
+                                                <td> {{$employee->emp_lname}}</td>
+                                                <td>{{ $employee->positon_name}}</td>
                                                 <td>
-                                                    <div> {{$document->document_name}}</div>
-                                                </td>
-                                                <td> {{$document->type_all_name}}</td>
-                                                <td>{{ $document->emp_name ?? '-' }}</td>
-
-                                                <td>{{ $document->teacher_name ?? '-' }}</td>
-                                                <td>{{$document->cotton_name}}</td>
-                                                <td>{{$document->year_name}}</td>
-                                                <td>
-                                                    <buntton class="btn btn-primary btndata" id="{{$loop->iteration}}">
-                                                        ข้อมูล</buntton>
+                                                    <a class="btn btn-primary"
+                                                        href="{{ route('employees-edit', ['id' => $employee->emp_id]) }}"
+                                                        id="{{ $loop->iteration }}">
+                                                        ข้อมูล
+                                                    </a>
                                                 </td>
                                             </tr>
                                             @endforeach
@@ -322,7 +321,7 @@
         </section>
 
     </main><!-- End #main -->
-    <script type="text/javascript" src="{{ asset('assets/js/product.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('assets/js/datatable.js') }}"></script>
     <!-- ======= Footer ======= -->
     @include('../footer')
     <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i

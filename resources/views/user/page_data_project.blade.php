@@ -95,7 +95,7 @@
                                     <!-- <i class="bi bi-trophy" style="color:tomato;"></i> -->
                                 </div>
                                 <div class="ps-3">
-                                    <h6>{{$total_assets}}</h6>
+                                <h6>{{ $total_assets ? $total_assets : 0 }}</h6>
                                     <!-- <span class="text-success small pt-1 fw-bold"> <i
                                             class="bi bi-arrow-up-circle-fill"></i>
                                         1</span> <span class="text-muted small pt-2 ps-1">increase</span> -->
@@ -112,21 +112,17 @@
                     <div class="card info-card sales-card">
 
                         <div class="card-body">
-                            <h5 class="card-title">กระบวนการ
+                            <h5 class="card-title">อาจารย์รับผิดชอบ
                                 <!-- <span>| Asian</span> -->
                             </h5>
 
                             <div class="d-flex align-items-center">
                                 <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
-                                    <i class="ri-file-text-line"></i>
+                                <i class="ri-user-3-line"></i>
                                 </div>
                                 <div class="ps-3">
-                                    <h6>
-                                        @php
-                                        $typeOne = $total_all->firstWhere('id_type', 1);
-                                        @endphp
-                                        {{ $typeOne ? $typeOne->total : 0 }}
-                                    </h6>
+                                <h6>{{ $total_assets_teacher ? $total_assets_teacher : 0 }}</h6>
+                                
                                     <!-- <span class="text-success small pt-1 fw-bold"> <i
                                             class="bi bi-arrow-up-circle-fill"></i>
                                         2</span> <span class="text-muted small pt-2 ps-1">increase</span> -->
@@ -145,21 +141,17 @@
 
 
                         <div class="card-body">
-                            <h5 class="card-title"> โปรเจค
+                            <h5 class="card-title"> เจ้าหน้าที่รับผิดชอบ
                                 <!-- <span>| Thailand</span> -->
                             </h5>
 
                             <div class="d-flex align-items-center">
                                 <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
-                                    <i class="ri-file-list-2-line"></i>
+                                <i class="ri-team-line"></i>
                                 </div>
                                 <div class="ps-3">
-                                    <h6>
-                                        @php
-                                        $typeOne = $total_all->firstWhere('id_type',2);
-                                        @endphp
-                                        {{ $typeOne ? $typeOne->total : 0 }}
-                                    </h6>
+                                <h6>{{ $total_assets_employee ? $total_assets_employee : 0 }}</h6>
+                                   
                                     <!-- <span class="text-danger small pt-1 fw-bold"> <i
                                             class="bi bi-arrow-down-circle-fill"></i>
                                         1</span> <span class="text-muted small pt-2 ps-1">decrease</span> -->
@@ -179,21 +171,17 @@
 
 
                         <div class="card-body">
-                            <h5 class="card-title"> ผลิตภัณฑ์
+                            <h5 class="card-title"> เจ้าหน้าที่รับผิดชอบ
                                 <!-- <span>| Thailand</span> -->
                             </h5>
 
                             <div class="d-flex align-items-center">
                                 <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
-                                    <i class="ri-file-list-3-line"></i>
+                                    <i class="ri-team-line"></i>
                                 </div>
                                 <div class="ps-3">
-                                    <h6> @php
-                                        $typeOne = $total_all->firstWhere('id_type',3);
-                                        @endphp
-                                        {{ $typeOne ? $typeOne->total : 0 }}
+                                    <h6>{{ $total_assets_cotton ? $total_assets_cotton : 0 }}</h6>
 
-                                    </h6>
                                     <!-- <span class="text-danger small pt-1 fw-bold"> <i
                                             class="bi bi-arrow-down-circle-fill"></i>
                                         1</span> <span class="text-muted small pt-2 ps-1">decrease</span> -->
@@ -215,7 +203,8 @@
 
                                 <div class="filter" style="margin-right: 3%;">
 
-                                    <button class="btn btn-success ml-auto">เพิ่มข้อมูล</button>
+                                    <a class="btn btn-success ml-auto"
+                                        href="{{route('documents.create')}}">เพิ่มข้อมูล</a>
                                 </div>
 
                                 <div class="card-body">
@@ -266,7 +255,8 @@
                                                         data-id="{{$document->encoded_id }}">
                                                         ข้อมูล
                                                     </button> -->
-                                                    <a class="btn btn-primary btn_id_show" data-id="{{ $document->encoded_id }}"
+                                                    <a class="btn btn-primary btn_id_show"
+                                                        data-id="{{ $document->encoded_id }}"
                                                         href="{{ route('pageselectdata_get', ['id' => $document->encoded_id]) }}">
                                                         ข้อมูล
                                                     </a>

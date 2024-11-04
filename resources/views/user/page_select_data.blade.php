@@ -8,6 +8,9 @@
     <title>CP - Assets</title>
     <meta content="" name="description">
     <meta content="" name="keywords">
+
+    <!-- เพิ่ม Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <link rel="icon" href="/assets/images/icon/cpkkuicon.ico" rel="icon" type="image/x-icon">
     <!-- DataTables CSS -->
     <link rel="stylesheet" type="text/css" href="//cdn.datatables.net/1.10.21/css/jquery.dataTables.min.css">
@@ -50,6 +53,52 @@
         /* จัดให้อยู่ตรงกลาง */
         margin-bottom: 20px;
         /* เพิ่มระยะห่างด้านล่าง */
+    }
+
+    /* เพิ่มสไตล์สำหรับ Toggle Switch */
+    .switch {
+        position: relative;
+        display: inline-block;
+        width: 50px;
+        height: 25px;
+    }
+
+    .switch input {
+        opacity: 0;
+        width: 0;
+        height: 0;
+    }
+
+    .slider {
+        position: absolute;
+        cursor: pointer;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background-color: #ccc;
+        transition: 0.4s;
+        border-radius: 25px;
+    }
+
+    .slider:before {
+        position: absolute;
+        content: "";
+        height: 17px;
+        width: 17px;
+        left: 4px;
+        bottom: 4px;
+        background-color: white;
+        transition: 0.4s;
+        border-radius: 50%;
+    }
+
+    input:checked+.slider {
+        background-color: #4CAF50;
+    }
+
+    input:checked+.slider:before {
+        transform: translateX(24px);
     }
     </style>
     <!-- =======================================================
@@ -144,7 +193,8 @@
                                                     <input class="form-control" readonly type="datetime-local"
                                                         id="end_time"
                                                         value="{{ \Carbon\Carbon::parse($documents->end_time)->format('Y-m-d\TH:i') }}">
-                                                    <button class="input-group-text color-success" id="btn_edit_end_time"
+                                                    <button class="input-group-text color-success"
+                                                        id="btn_edit_end_time"
                                                         style="background-color: #b3e5fc; color: black;">
                                                         <i class='bx bxs-edit'></i>
                                                 </div>
@@ -152,7 +202,7 @@
 
                                             <!-- ปี -->
                                             <div class="mb-3 col-xl-6 mt-3">
-                                                <label for="year_name" class="form-label">ปี (ค.ศ.)</label>
+                                                <label for="year_name" class="form-label">ปีงบประมาณ (ค.ศ.)</label>
                                                 <div class="input-group">
                                                     <input class="form-control" readonly type="text" id="year_name"
                                                         value="{{ $documents->year_name }}">
@@ -188,12 +238,12 @@
 
                                             <!-- ชื่อครู -->
                                             <div class="mb-3 col-xl-6 mt-3">
-                                                <label for="teacher_name"
-                                                    class="form-label">อาจารย์ที่รับผิดชอบ</label>
+                                                <label for="teacher_name" class="form-label">อาจารย์ที่รับผิดชอบ</label>
                                                 <div class="input-group">
                                                     <input class="form-control" readonly type="text" id="teacher_name"
                                                         value="{{ $documents->teacher_name != '' ? $documents->academic_stort_name . $documents->teacher_name. ' ' . $documents->teacher_lname : '-' }}">
-                                                    <button class="input-group-text color-success" id="btn_edit_teachers"
+                                                    <button class="input-group-text color-success"
+                                                        id="btn_edit_teachers"
                                                         style="background-color: #b3e5fc; color: black;">
                                                         <i class='bx bxs-edit'></i>
                                                 </div>
@@ -201,17 +251,31 @@
 
                                             <!-- ชื่อพนักงาน -->
                                             <div class="mb-3 col-xl-6 mt-3">
-                                                <label for="emp_name"
-                                                    class="form-label">เจ้าหน้าที่ผู้รับผิดชอบ</label>
+                                                <label for="emp_name" class="form-label">เจ้าหน้าที่ผู้รับผิดชอบ</label>
                                                 <div class="input-group">
-                                                    <input class="form-control" readonly type="text" id="emp_name"
-                                                        value="{{ $documents->emp_name != '' ?  $documents->emp_name . ' '. $documents->emp_lname : '-' }}">
+                                                    <input class="form-control" readonly type="text" id="emp_lname"
+                                                        value="{{ $documents->emp_lname != '' ?  $documents->emp_lname . ' '. $documents->emp_lname : '-' }}">
                                                     <button class="input-group-text" id="btn_edit_employee"
                                                         style="background-color: #b3e5fc; color: black;">
                                                         <i class='bx bxs-edit'></i>
                                                     </button>
                                                 </div>
                                             </div>
+
+                                            <div class="mb-3 col-xl-12 mt-3">
+                                                <label for="description" class="form-label">รายละเอียด</label>
+                                                <div class="input-group">
+                                                    <textarea class="form-control" id="input_description" name="description"
+                                                        rows="4"
+                                                        readonly>{{ $documents->description ?? '-' }}</textarea>
+                                                    <button type="button" class="input-group-text"
+                                                        id="btn_edit_description"
+                                                        style="background-color: #b3e5fc; color: black;">
+                                                        <i class='bx bxs-edit'></i>
+                                                    </button>
+                                                </div>
+                                            </div>
+
                                         </div>
 
 
@@ -229,7 +293,7 @@
 
                                 <div class="filter" style="margin-right: 3%;">
 
-                                    <button class="btn btn-success ml-auto">เพิ่มข้อมูล</button>
+                                    <button class="btn btn-success ml-auto btn-add-file">เพิ่มไฟล์</button>
                                 </div>
 
                                 <div class="card-body">
@@ -244,21 +308,50 @@
                                         <thead class="pt-3">
                                             <tr class="table-secondary">
                                                 <th scope="col">ลำดับ</th>
-                                                <th scope="col">รูป</th>
                                                 <th scope="col">ชื่อไฟล์</th>
-                                                <th scope="col">วันที่อัพโหลด</th>
-                                                <th scope="col">วันที่แก้ไขล่าสุด</th>
-                                                <!-- <th scope="col">สถานะ</th>
-                                                <th scope="col">อาจารย์</th>
-                                                <th scope="col">หน่วยงาน</th>
-                                                <th scope="col">ระยะเวลา</th> -->
-                                                <!-- <th scope="col">ปี</th> -->
+                                                <th scope="col">อัพโหลด</th>
+                                                <th scope="col">แก้ไขล่าสุด</th>
+                                                <th scope="col">สถานะ</th>
+                                           
                                                 <th scope="col"> </th>
                                             </tr>
                                         </thead>
                                         <tbody>
 
                                             <!-- เพิ่มข้อมูลในตารางตามที่ต้องการ -->
+
+                                            @foreach($file_all_document as $file)
+                                            <tr>
+                                                <td>{{ $loop->iteration }}</td>
+                                                <td>
+                                                    <a href="{{ asset($file->file_url) }}"
+                                                        target="_blank">{{ $file->file_all_name }}</a>
+                                                </td>
+                                                <td>{{ $file->created_at->format('d/m/Y') }}</td>
+                                                <td>{{ $file->updated_at->format('d/m/Y') }}</td>
+                                                <td>
+                                                    <label class="switch">
+                                                        <input type="checkbox" class="toggle-status"
+                                                            data-id="{{ $file->file_all_id }}"
+                                                            {{ $file->status == 1 ? 'checked' : '' }}>
+                                                        <span class="slider"></span>
+                                                    </label>
+                                                </td>
+                                                <td>
+                                                    @if ($file->status == 1)
+                                                    <a href="#" class="download-btn"
+                                                        data-file-url="{{ asset($file->file_url) }}"
+                                                        data-file-name="{{ $file->file_all_name }}">
+                                                        <i class="fas fa-download"></i> ดาวน์โหลด
+                                                    </a>
+                                                    @else
+                                                    <span class="text-muted"> 
+                                                    </span>
+                                                        @endif
+                                                </td>
+                                                <!-- คุณสามารถเพิ่มคอลัมน์เพิ่มเติมได้ตามต้องการ -->
+                                            </tr>
+                                            @endforeach
                                         </tbody>
                                     </table>
 
@@ -278,20 +371,20 @@
     </script> -->
     <!-- ======= Footer ======= -->
     @include('../footer')
-  
+
     <script>
     let encodedId = localStorage.getItem('encodedId');
-    let postEditIdNumberUrl ;
+    let postEditIdNumberUrl;
     // ตรวจสอบว่า encodedId มีค่าอยู่หรือไม่
     if (!encodedId) {
         console.error("encodedId is undefined or null. Please check if it has been set in localStorage.");
     } else {
-         postEditIdNumberUrl = "{{ route('postedit_id_number', ['id' => ':id']) }}";
+        postEditIdNumberUrl = "{{ route('postedit_id_number', ['id' => ':id']) }}";
         postEditIdNumberUrl = postEditIdNumberUrl.replace(':id', encodedId);
         console.log(postEditIdNumberUrl); // ตรวจสอบ URL ที่ได้
     }
     </script>
-      @include('../modal/modal_select_data')
+    @include('../modal/modal_select_data')
     <script type="text/javascript" src="{{ asset('assets/js/editmodal.js') }}"></script>
     <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i
             class="bi bi-arrow-up-short"></i></a>

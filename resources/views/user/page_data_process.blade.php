@@ -63,7 +63,7 @@
           <li class="breadcrumb-item"><a href="index.html">Home</a></li>
           <li class="breadcrumb-item active">Dashboard</li>
         </ol> -->
-                <span> Process ID : 123456789</span>
+                <!-- <span> Process ID : 123456789</span>    -->
             </nav>
         </div><!-- End Page Title -->
 
@@ -75,20 +75,20 @@
                     <div class="card info-card sales-card">
 
                         <div class="card-body">
-                            <h5 class="card-title">จำนวน
+                            <h5 class="card-title">ทั้งหมด
                                 <!-- <span>| World</span> -->
                             </h5>
 
                             <div class="d-flex align-items-center">
                                 <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
-                                    <i class="bi bi-globe2"></i>
+                                    <i class="ri-file-text-line"></i>
                                     <!-- <i class="bi bi-trophy" style="color:tomato;"></i> -->
                                 </div>
                                 <div class="ps-3">
-                                    <h6>753</h6>
-                                    <span class="text-success small pt-1 fw-bold"> <i
+                                    <h6>{{ $total_assets ? $total_assets : 0 }}</h6>
+                                    <!-- <span class="text-success small pt-1 fw-bold"> <i
                                             class="bi bi-arrow-up-circle-fill"></i>
-                                        1</span> <span class="text-muted small pt-2 ps-1">increase</span>
+                                        1</span> <span class="text-muted small pt-2 ps-1">increase</span> -->
 
                                 </div>
                             </div>
@@ -108,13 +108,13 @@
 
                             <div class="d-flex align-items-center">
                                 <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
-                                    <i class="bi bi-globe-central-south-asia"></i>
+                                    <i class="ri-user-3-line"></i>
                                 </div>
                                 <div class="ps-3">
-                                    <h6>304</h6>
-                                    <span class="text-success small pt-1 fw-bold"> <i
+                                    <h6>{{ $total_assets_teacher ? $total_assets_teacher : 0 }}</h6>
+                                    <!-- <span class="text-success small pt-1 fw-bold"> <i
                                             class="bi bi-arrow-up-circle-fill"></i>
-                                        2</span> <span class="text-muted small pt-2 ps-1">increase</span>
+                                        2</span> <span class="text-muted small pt-2 ps-1">increase</span> -->
 
                                 </div>
                             </div>
@@ -136,13 +136,13 @@
 
                             <div class="d-flex align-items-center">
                                 <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
-                                    <i class="bi bi-trophy"></i>
+                                    <i class="ri-team-line"></i>
                                 </div>
                                 <div class="ps-3">
-                                    <h6>4</h6>
-                                    <span class="text-danger small pt-1 fw-bold"> <i
+                                    <h6>{{ $total_assets_employee ? $total_assets_employee : 0 }}</h6>
+                                    <!-- <span class="text-danger small pt-1 fw-bold"> <i
                                             class="bi bi-arrow-down-circle-fill"></i>
-                                        1</span> <span class="text-muted small pt-2 ps-1">decrease</span>
+                                        1</span> <span class="text-muted small pt-2 ps-1">decrease</span> -->
 
                                 </div>
                             </div>
@@ -168,10 +168,10 @@
                                     <i class="bi bi-trophy"></i>
                                 </div>
                                 <div class="ps-3">
-                                    <h6>4</h6>
-                                    <span class="text-danger small pt-1 fw-bold"> <i
+                                    <h6>{{ $total_assets_cotton ? $total_assets_cotton : 0 }}</h6>
+                                    <!-- <span class="text-danger small pt-1 fw-bold"> <i
                                             class="bi bi-arrow-down-circle-fill"></i>
-                                        1</span> <span class="text-muted small pt-2 ps-1">decrease</span>
+                                        1</span> <span class="text-muted small pt-2 ps-1">decrease</span> -->
 
                                 </div>
                             </div>
@@ -180,7 +180,7 @@
                     </div>
 
                 </div><!-- End Customers Card -->
-         
+
                 <!-- Left side columns -->
                 <div class="col-lg-12">
                     <div class="row">
@@ -188,14 +188,15 @@
                         <div class="col-12">
                             <div class="card recent-sales overflow-auto">
 
-                                <div class="filter" style="margin-right: 8%;">
+                                <div class="filter" style="margin-right: 3%;">
 
-                                    <button class="btn btn-success ml-auto">เพิ่มข้อมูล</button>
+                                    <a class="btn btn-success ml-auto"
+                                        href="{{route('documents.create')}}">เพิ่มข้อมูล</a>
                                 </div>
 
                                 <div class="card-body">
                                     <h5 class="card-title d-flex justify-content-between align-items-center">
-                                    รายการกระบวนการทั้งหมด
+                                        รายการกระบวนการทั้งหมด
                                         <!-- <button class="btn btn-success ml-auto"
                                             style="margin-right: 8%;">เพิ่มข้อมูล</button> -->
                                     </h5>
@@ -211,6 +212,7 @@
                                                 <th scope="col">เจ้าหน้าที่</th>
                                                 <th scope="col">อาจารย์</th>
                                                 <th scope="col">หน่วยงาน</th>
+                                                <th scope="col">ระยะเวลา</th>
                                                 <th scope="col">ปี</th>
                                                 <th scope="col"> </th>
                                             </tr>
@@ -233,9 +235,18 @@
 
                                                 <td>{{ $document->teacher_name ?? '-' }}</td>
                                                 <td>{{$document->cotton_name}}</td>
+                                                <td style="text-align:center">{{$document->days_remaining}} </td>
                                                 <td>{{$document->year_name}}</td>
                                                 <td>
-                                                    <buntton class="btn btn-primary btndata" id="{{$loop->iteration}}">ข้อมูล</buntton>
+                                                    <!-- <button class="btn btn-primary btn_id_show"
+                                                        data-id="{{$document->encoded_id }}">
+                                                        ข้อมูล
+                                                    </button> -->
+                                                    <a class="btn btn-primary btn_id_show"
+                                                        data-id="{{ $document->encoded_id }}"
+                                                        href="{{ route('pageselectdata_get', ['id' => $document->encoded_id]) }}">
+                                                        ข้อมูล
+                                                    </a>
                                                 </td>
                                             </tr>
                                             @endforeach

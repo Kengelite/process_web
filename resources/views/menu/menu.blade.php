@@ -32,7 +32,12 @@
                   <span>ผลิตภัณฑ์ ( Product )</span>
               </a>
           </li><!-- End Register Page Nav -->
-
+          <li class="nav-item">
+              <a class="nav-link collapsed" id="pagedataforteacher" href="{{route('pageteacher')}}">
+                  <i class="ri-user-3-line"></i>
+                  <span>อาจารย์</span>
+              </a>
+          </li><!-- End Error 404 Page Nav -->
           <li class="nav-item">
               <a class="nav-link collapsed" id="pagedataforemployee" href="{{route('pageemployee')}}">
                   <i class="ri-team-line"></i>
@@ -42,12 +47,7 @@
               </a>
           </li><!-- End Login Page Nav -->
 
-          <li class="nav-item">
-              <a class="nav-link collapsed" id="pagedataforteacher" href="{{route('pageteacher')}}">
-                  <i class="ri-user-3-line"></i>
-                  <span>อาจารย์</span>
-              </a>
-          </li><!-- End Error 404 Page Nav -->
+
 
           <li class="nav-item">
               <a class="nav-link collapsed" href="{{route('pageout')}}">
@@ -74,20 +74,20 @@ document.addEventListener('DOMContentLoaded', function() {
     } else if (pathSegments[1] === 'pagedataforprocess') {
         var element_p2 = document.getElementById('pagedataforprocess');
         element_p2.classList.add('active');
-    }else if (pathSegments[1] === 'pagedataforproject') {
+    } else if (pathSegments[1] === 'pagedataforproject') {
         var element_p2 = document.getElementById('pagedataforproject');
         element_p2.classList.add('active');
-    }else if (pathSegments[1] === 'pagedataforproduct') {
+    } else if (pathSegments[1] === 'pagedataforproduct') {
         var element_p2 = document.getElementById('pagedataforproduct');
         element_p2.classList.add('active');
-    }else if (pathSegments[1] === 'pagedataforemployee') {
+    } else if (pathSegments[1] === 'pagedataforemployee') {
         var element_p2 = document.getElementById('pagedataforemployee');
         element_p2.classList.add('active');
-    }else if (pathSegments[1] === 'pagedataforteacher') {
+    } else if (pathSegments[1] === 'pagedataforteacher') {
         var element_p2 = document.getElementById('pagedataforteacher');
         element_p2.classList.add('active');
     }
-    
+
 
 });
   </script>

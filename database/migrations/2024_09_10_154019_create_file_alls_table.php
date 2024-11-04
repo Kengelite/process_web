@@ -15,6 +15,8 @@ return new class extends Migration
             $table->uuid('file_all_id')->primary();
             $table->string('file_all_name');
             $table->string('file_url');
+            $table->string('thumbnail_url')->nullable();
+            $table->integer('status');
             $table->uuid('id_documnet'); 
             $table->timestamp('created_at')->default(DB::raw('CURRENT_TIMESTAMP'));
             $table->timestamp('updated_at')->default(DB::raw('CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP'));
