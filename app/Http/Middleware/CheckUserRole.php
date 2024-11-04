@@ -18,7 +18,7 @@ class CheckUserRole
         $email = session('user_name');
 
         // ตรวจสอบ email ใน session
-        $allowedEmail = 'keng@gmail.com';
+        $allowedEmail = 'cpkku@kkumail.com';
         if (!$email || $email !== $allowedEmail) {
             // redirect หรือแสดง error หาก email ไม่ผ่าน
             return redirect('/pagelogin');
