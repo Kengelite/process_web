@@ -97,10 +97,10 @@
                                         <div class="col-12 mt-5">
                                             <button class="btn btn-primary w-100" type="submit">เข้าสู่ระบบ</button>
                                         </div>
-                                        <div class="col-12">
+                                        <!-- <div class="col-12">
                                             <p class="small mb-0">หากไม่มีข้อมูล ? <a
                                                     href="pages-register.html">สมัครสมาชิก</a></p>
-                                        </div>
+                                        </div> -->
                                     </form>
 
                                 </div>
