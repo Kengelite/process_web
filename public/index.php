@@ -4,6 +4,9 @@ use Illuminate\Http\Request;
 
 define('LARAVEL_START', microtime(true));
 
+// ปิดการแจ้งเตือน Deprecated เพื่อไม่ให้แทรกใน JSON รบกวนฝั่ง Frontend (สำหรับ PHP 8.4+)
+error_reporting(E_ALL & ~E_DEPRECATED);
+
 // Determine if the application is in maintenance mode...
 if (file_exists($maintenance = __DIR__.'/../storage/framework/maintenance.php')) {
     require $maintenance;

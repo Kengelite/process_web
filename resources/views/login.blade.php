@@ -139,26 +139,39 @@
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                 },
                 success: function(response) {
-                    console.log(response)
+                    console.log(response);
                     if (response.success) {
                         Swal.fire({
                             icon: 'success',
                             title: 'สำเร็จ',
-                            text: "เข้าสู่ระบบสำเร็จ"
+                            text: response.message,
+                            timer: 1500,
+                            showConfirmButton: false
                         }).then(() => {
-                            window.location.href = "/";
+                            window.location.href = response.redirect_url;
                         });
                     } else {
                         Swal.fire({
                             icon: 'error',
-                            title: 'ผิดพลาด',
-                            text: "กรุณาลองใหม่อีกครั้ง"
+                            title: 'เข้าสู่ระบบไม่สำเร็จ',
+                            text: response.message
                         });
                     }
                 },
                 error: function(xhr, status, error) {
-                  console.log(xhr.responseText )
-                   
+                    console.log(xhr.responseText);
+                    let msg = 'เกิดข้อผิดพลาดในระบบ: ' + xhr.status + ' ' + error;
+                    try {
+                        let res = JSON.parse(xhr.responseText);
+                        if (res.message) msg = res.message;
+                    } catch(e) {
+                        msg = 'การตอบกลับจากเซิร์ฟเวอร์ผิดปกติ:\n\n' + xhr.responseText.substring(0, 300);
+                    }
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'เกิดข้อผิดพลาด',
+                        text: msg
+                    });
                 }
             });
         });
