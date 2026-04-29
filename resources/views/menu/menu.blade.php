@@ -47,6 +47,13 @@
               </a>
           </li><!-- End Login Page Nav -->
 
+          <li class="nav-item">
+              <a class="nav-link collapsed" id="pagemou" href="{{route('mou.index')}}">
+                  <i class="ri-file-paper-2-line"></i>
+                  <span>จัดการไฟล์ MOU</span>
+              </a>
+          </li><!-- End MOU Page Nav -->
+
 
 
           <li class="nav-item">
@@ -85,6 +92,9 @@ document.addEventListener('DOMContentLoaded', function() {
         element_p2.classList.add('active');
     } else if (pathSegments[1] === 'pagedataforteacher') {
         var element_p2 = document.getElementById('pagedataforteacher');
+        element_p2.classList.add('active');
+    } else if (pathSegments[1] === 'mou') {
+        var element_p2 = document.getElementById('pagemou');
         element_p2.classList.add('active');
     }
 

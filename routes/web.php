@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\FileController;
 use App\Http\Middleware\CheckUserRole;
 use App\Models\User;
 // Route::get('/', function () {
@@ -94,6 +95,13 @@ Route::get('/pagedataforteacher', [UserController::class, 'showeteacher'])->name
 Route::post('/selectdata', [UserController::class, 'selectshowdata'])->name('pageselectdata');
 
 Route::get('/pageselectdata', [UserController::class, 'dataPage'])->name('data_page');
+
+// === MOU File Management ===
+Route::get('/mou', [FileController::class, 'index'])->name('mou.index');
+Route::post('/mou/upload', [FileController::class, 'store'])->name('mou.upload');
+Route::delete('/mou/delete/{id}', [FileController::class, 'destroy'])->name('mou.delete');
+Route::get('/mou/download/{id}', [FileController::class, 'download'])->name('mou.download');
+Route::get('/mou/preview/{id}', [FileController::class, 'preview'])->name('mou.preview');
 
 });
 
